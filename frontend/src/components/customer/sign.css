@@ -1,0 +1,21 @@
+.sign {
+    width: 75% !important;
+    padding: 20px;
+    background-color: aliceblue;
+}
+.sign img {
+    border-radius: 20px;
+    margin-top: 20%;
+    margin-left: 2%;
+
+}
+.sign .login {
+    margin-top: 10% !important;
+}
+.sign .login-header {
+    margin-top: 15% !important;
+}
+.sign .icon {
+    font-size: 35px;
+    color: red;
+}
