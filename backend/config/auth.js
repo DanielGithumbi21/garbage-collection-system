@@ -1,11 +1,7 @@
-const isAuth = (req,res,next) => {
+const isAuth = (req, res, next) => {
   if(req.session.isAuth === true){
-    return next()
+  return next()
   }
-  // redirect to login page
-  return res.json({
-    message: 'Redirect to login page'
-  })
+  return res.status(403).json({ message: 'UNAUTHORIZED REQUEST'})
 }
-
 module.exports = isAuth;
