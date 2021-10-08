@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const isAuth = require('../config/auth');
+
 
 const vendorController = require('../controllers/vendor/vendorController')
 
@@ -25,7 +25,7 @@ router.route('/login')
 */
 
 router.route('/dashboard')
-  .get(isAuth, vendorController.getDashboard)
+  .get(vendorController.getDashboard)
   .post()
 
 /*
@@ -34,5 +34,12 @@ router.route('/dashboard')
 
 router.route('/logout')
   .get(vendorController.logout)
+
+/*
+  GET VENDOR BY ID SETUP
+*/
+
+router.route('/:id')
+  .get(vendorController.getOneVendor)
 
 module.exports = router;

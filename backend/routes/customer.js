@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const isAuth = require('../config/auth');
 
 const customerController = require('../controllers/customer/customerController')
 
@@ -25,14 +24,29 @@ router.route('/login')
 */
 
 router.route('/dashboard')
-  .get(isAuth, customerController.getDashboard)
+  .get(customerController.getDashboard)
   .post()
 
 /*
-  LOGIN SETUP
+  LOGOUT SETUP
 */
 
 router.route('/logout')
   .get(customerController.logout)
+
+/*
+  MAKE BOOKING SETUP
+*/
+
+router.route('/book')
+  .get(customerController.getBooking)
+  .post(customerController.makeBooking)
+
+/*
+  GET CUSTOMER BY ID SETUP
+*/
+
+router.route('/:id')
+  .get(customerController.getOneCustomer)
 
 module.exports = router;
