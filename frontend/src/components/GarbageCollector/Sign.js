@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import "../customer/sign.css"
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import {signin,signup} from "../../Actions/Auth"
+import {garbageSignin,garbageSignup} from "../../Actions/Auth"
+import * as api from "../../api/index"
 const GarbageSign = () => {
-    const initialState = {firstName:'',lastName:'',email:'',phonenumber:'',location:'',password:''}
+    const initialState = {first_name:'',last_name:'',email:'',phone_number:'',address:'',password:''}
     const [isSignUp,setIsSignUp] = useState(true);
     const [formData, setFormData] = useState(initialState)
     const dispatch = useDispatch ();
@@ -18,10 +19,12 @@ const GarbageSign = () => {
     const onSubmit = (e) => {
         e.preventDefault()
         if (isSignUp) {
-            dispatch(signup(formData,history))
+            dispatch(garbageSignup(formData,history))
+        }else{
+            dispatch(garbageSignin(formData,history))
         }
-            dispatch(signin(formData,history))
     }
+    
     return (
         <div className="container sign mt-5">
             <div className="row padding">
@@ -45,13 +48,13 @@ const GarbageSign = () => {
                     <div className="row padding">
                     <div className="col-lg-6 col-md-6 col-sm-12">
                     <div class="form-floating mb-3">
-                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="John" name='firstname' required/>
+                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="John" name='first_name' required/>
                         <label for="floatingInput">First Name</label>
                     </div>  
                     </div>
                     <div className="col-lg-6">
                     <div class="form-floating mb-3">
-                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="Doe" name='lastname' required/>
+                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="Doe" name='last_name' required/>
                         <label for="floatingInput">Last Name</label>
                     </div> 
                     </div>
@@ -65,13 +68,13 @@ const GarbageSign = () => {
                     </div>
                     <div className="col-lg-6">
                     <div class="form-floating mb-3">
-                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="07********" name='phonenumber' required/>
+                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="07********" name='phone_number' required/>
                         <label for="floatingInput">Phone Number</label>
                     </div> 
                     </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" onChange={handleChange} class="form-control" id="floatingPassword" placeholder="Kikuyu" name="location" required/>
+                        <input type="text" onChange={handleChange} class="form-control" id="floatingPassword" placeholder="Kikuyu" name="address" required/>
                         <label for="floatingPassword">Location</label>
                     </div>
                      <div class="form-floating mb-3">
