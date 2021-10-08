@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const Customer = require('../../models/customer')
-const Book = require('../../models/booking');
+
 
 /*
   REGISTER SETUP
@@ -20,21 +20,12 @@ exports.createNewCustomer= async (req, res, next) => {
     let { first_name, last_name, address, email, phone_number, password } = req.body
     let customer = await Customer.findOne({ first_name, last_name, email })
     if (customer) return res.json({ message: 'Customer already exists' })
-    let newCustomer = new Customer({
-      first_name, 
-      last_name, 
-      address, 
-      email, 
-      phone_number, 
-      password
-    })
-    newCustomer.save()
-      .then((result) => res.status(201).json(result))
-      .catch(err => console.error(err))
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
+   const result = await Customer.create({first_name,last_name,address,email,phone_number,password})
+  const token = jwt.sign({email:result.email,id:result._id},secret,{expiresIn:"1h"})
+  res.status (200).json({result,token})
+} catch (error) {
+  console.log(error)
+}
 }
 
 /*
@@ -58,8 +49,8 @@ exports.loginCustomer = async (req, res, next) => {
     let matchPassword = bcrypt.compare(password, customer.password)
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
-    req.session.isAuth = true
-    return res.json({ message: 'LOGIN SUCCESSFULL' })
+    const token = jwt.sign({email:customer.email,id:customer._id},secret,{expiresIn:"1h"})
+    res.status(200).json({result:customer,token})
   } catch (error) {
     console.error(error);
     next(error);
