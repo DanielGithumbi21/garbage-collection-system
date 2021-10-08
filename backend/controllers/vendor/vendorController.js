@@ -91,3 +91,17 @@ exports.logout = async (req, res, next) => {
     next(error);
   }
 }
+
+
+/*
+  GET ONE VENDOR SETUP
+*/
+exports.getOneVendor = async (req, res, next) => {
+  try {
+    let vendor = await Vendor.findById({ _id: req.params.id})
+    return res.json(vendor)
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
