@@ -20,9 +20,9 @@ const CustomerSign = () => {
     const onSubmit = (e) => {
         e.preventDefault()
         if (isSignUp) {
-            dispatch(customerSignin(formData,history))
-        }else{
             dispatch(customerSignup(formData,history))
+        }else{
+            dispatch(customerSignin(formData,history))
         }
     }
     return (

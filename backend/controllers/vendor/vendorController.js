@@ -57,7 +57,7 @@ exports.loginVendor = async (req, res, next) => {
     let matchPassword = bcrypt.compare(password, vendor.password)
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
-    req.session.isAuth = true
+    // req.session.isAuth = true
     return res.json({ message: 'LOGIN SUCCESSFULL' })
   } catch (error) {
     console.error(error);

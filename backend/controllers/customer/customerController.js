@@ -20,7 +20,7 @@ exports.createNewCustomer= async (req, res, next) => {
     let { first_name, last_name, address, email, phone_number, password } = req.body
     let customer = await Customer.findOne({ first_name, last_name, email })
     if (customer) return res.json({ message: 'Customer already exists' })
-    let newVendor = new Vendor({
+    let newVendor = new Customer({
       first_name, 
       last_name, 
       address, 
@@ -61,6 +61,7 @@ exports.loginCustomer = async (req, res, next) => {
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
     // const token = jwt.sign({email:customer.email,id:customer._id},secret,{expiresIn:"1h"})
+    // res.json.status(200).json({result:customer,token})
     res.status(200).json("login successful")
   } catch (error) {
     console.error(error);

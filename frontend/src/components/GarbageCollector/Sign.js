@@ -5,7 +5,8 @@ import { useHistory } from 'react-router';
 import {garbageSignin,garbageSignup} from "../../Actions/Auth"
 import * as api from "../../api/index"
 const GarbageSign = () => {
-    const initialState = {first_name:'',last_name:'',email:'',phone_number:'',address:'',password:''}
+    const initialState = {first_name:'',last_name:'',email:'',phone_number:'',location:'',password:''}
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const [isSignUp,setIsSignUp] = useState(true);
     const [formData, setFormData] = useState(initialState)
     const dispatch = useDispatch ();
@@ -24,10 +25,12 @@ const GarbageSign = () => {
             dispatch(garbageSignin(formData,history))
         }
     }
+   
     
     return (
         <div className="container sign mt-5">
             <div className="row padding">
+                
                 <div className="col-lg-6 col-md-6 col-sm-12">
                     {isSignUp?
                     <>  
@@ -43,6 +46,7 @@ const GarbageSign = () => {
                      <h3 className="text-center">Garbage collector Login</h3>
                  </>
                  }
+
                     {isSignUp?
                     <form onSubmit={onSubmit}>
                     <div className="row padding">
@@ -74,7 +78,7 @@ const GarbageSign = () => {
                     </div>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="text" onChange={handleChange} class="form-control" id="floatingPassword" placeholder="Kikuyu" name="address" required/>
+                        <input type="text" onChange={handleChange} class="form-control" id="floatingPassword" placeholder="Kikuyu" name="location" required/>
                         <label for="floatingPassword">Location</label>
                     </div>
                      <div class="form-floating mb-3">

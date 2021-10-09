@@ -1,25 +1,26 @@
 import React,{useState,useEffect} from 'react';
-// import { useDispatch } from "react-redux";
-// import { useHistory } from "react-router";
-// import { useLocation } from "react-router";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 
 const SchedulePickUp = () => {
-    // const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    // const dispatch = useDispatch();
-    // const history = useHistory();
-    // const location = useLocation ();
-    // const logout = () => {
-    //     dispatch({type:"LOGOUT"});
-    //     history.push("/")
-    //     setUser(null)
-    // }
-    // useEffect (() => {
-    //     // const token =user?.token;
-    //     setUser(JSON.parse(localStorage.getItem('profile')))
-    // },[location])
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const location = useLocation ();
+    const logout = () => {
+        dispatch({type:"LOGOUT"});
+        history.push("/")
+        setUser(null)
+    }
+    useEffect (() => {
+        // const token =user?.token;
+        setUser(JSON.parse(localStorage.getItem('profile')))
+    },[location])
     return (
         <div>
+            {user?
            
             <nav className="navbar navbar-expand-lg">
                 <div className="container-fluid">
@@ -28,6 +29,7 @@ const SchedulePickUp = () => {
                     <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <Link to="/products">
                         <li className="nav-item">
@@ -40,15 +42,15 @@ const SchedulePickUp = () => {
                         </li>
                         </Link>
                     </ul>
-                    {/* <h5 className="navbar-header"style={{color:"black"}}>{user.result.first_name}</h5>
-                    <button className="btn btn-danger btn-md" onClick={logout} >Logout</button> */}
+                    <button className="btn btn-danger btn-md" onClick={logout} >Logout</button>
                     </div>
                     
                     
                 </div>
             </nav>
-            
+            :<p>{user.message}</p>}
         </div>
     )
 }
 export default SchedulePickUp;
+
