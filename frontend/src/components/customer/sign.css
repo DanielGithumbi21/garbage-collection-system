@@ -23,8 +23,8 @@
     background-color: transparent;
     padding: 20px;
 }
-.navbar-nav {
-    margin-left: 50%;
+.navbar-collapse {
+    margin-left: 60%;
     text-decoration: none !important;
     list-style-type: none !important;
 }
@@ -45,7 +45,7 @@ Link li{
     list-style-type: none !important; 
 }
 .navbar-brand {
-    color: rgb(29, 59, 143);
+    color: rgb(255, 255, 255);
 
 }
 .navbar img {
@@ -61,4 +61,24 @@ Link li{
 }
 .navbar-header {
     color: rgb(19, 231, 150);
+}
+.booking {
+    padding: 20px !important;
+}
+.booking .card {
+    padding: 20px !important;
+    margin: 10px;
+}
+.vendor-booking {
+    padding: 20px;
+    width: 40%;
+}
+.vendor-booking h5 {
+    padding: 10px;
+}
+.vendor-booking .card {
+    padding: 20px;
+}
+.vendor-booking textarea {
+    height: 120px !important;
 }

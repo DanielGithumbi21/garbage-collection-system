@@ -3,52 +3,58 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-
+import Navbar from '../Navbar/Navbar';
+import "./sign.css"
 const SchedulePickUp = () => {
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    const dispatch = useDispatch();
-    const history = useHistory();
     const location = useLocation ();
-    const logout = () => {
-        dispatch({type:"LOGOUT"});
-        history.push("/")
-        setUser(null)
+    const [data,setData] = useState([]);
+  
+    useEffect (() => {
+        getData ()
+    },[])
+    const getData = async () => {
+        try{
+            const response = await fetch ("http://localhost:5000/vendor/register")
+        const result = await response.json();
+        console.log(result)
+        setData(result)
+        }
+        catch (error) {
+            console.log(error)
+        }
+        
     }
     useEffect (() => {
         // const token =user?.token;
         setUser(JSON.parse(localStorage.getItem('profile')))
     },[location])
+    
+     const buttonHandler =  (id,name) => {
+         localStorage.setItem("currentvendorId",JSON.stringify({id}))
+         localStorage.setItem("currentvendor",JSON.stringify({name}))
+     }
     return (
         <div>
-            {user?
-           
-            <nav className="navbar navbar-expand-lg">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="/">Garbage Hauler System</a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <Navbar/>
+            <div className="container booking mt-5">
+            <div className='row padding' >
+                {data.map(vendor => (
 
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <Link to="/products">
-                        <li className="nav-item">
-                        Home
-                        </li>
+                
+                <div className='card text-center row' style={{width:"18rem"}}>
+                    <div >
+                        <h5>{vendor.first_name} {vendor.last_name}</h5>
+                        <h5>Located in {vendor.location}</h5>
+                        <Link to ="booking">
+                        <button className='btn btn-md btn-info' onClick={() => buttonHandler(vendor._id,vendor.first_name)}>Make a booking</button>
                         </Link>
-                        <Link to="/dashboard">
-                        <li className="nav-item">
-                        pick up requests
-                        </li>
-                        </Link>
-                    </ul>
-                    <button className="btn btn-danger btn-md" onClick={logout} >Logout</button>
                     </div>
-                    
-                    
                 </div>
-            </nav>
-            :<p>{user.message}</p>}
+                
+                ))}
+                </div>
+             </div>
         </div>
     )
 }

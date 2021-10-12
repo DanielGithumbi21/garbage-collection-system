@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "../customer/sign.css"
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import {customerSignin,customerSignup} from "../../Actions/Auth"
 import * as api from "../../api/index"
 const CustomerSign = () => {
     const initialState = {first_name:'',last_name:'',email:'',phone_number:'',address:'',password:''}
     const [isSignUp,setIsSignUp] = useState(true);
     const [formData, setFormData] = useState(initialState)
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const [errors,setErrors] = useState([]);
     const dispatch = useDispatch ();
     const history = useHistory ();
@@ -17,6 +18,10 @@ const CustomerSign = () => {
     const handleChange =(e) => {
         setFormData({...formData,[e.target.name]:e.target.value})
     }
+    useEffect (() => {
+        // const token =user?.token;
+        setUser(JSON.parse(localStorage.getItem('profile')))
+    },[])
     const onSubmit = (e) => {
         e.preventDefault()
         if (isSignUp) {
@@ -24,9 +29,21 @@ const CustomerSign = () => {
         }else{
             dispatch(customerSignin(formData,history))
         }
+        // if (user.message) {
+        //     history.go(0)
+        // }
+        
     }
+   
     return (
         <div className="container sign mt-5">
+            {/* {user?
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Hey, </strong> {user.message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+            :""}
+             */}
             <div className="row padding">
                 <div className="col-lg-6 col-md-6 col-sm-12">
                     {isSignUp?
