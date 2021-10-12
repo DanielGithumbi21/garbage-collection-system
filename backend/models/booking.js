@@ -15,6 +15,10 @@ const bookingSchema = mongoose.Schema({
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'customer'
+  },
+  vendor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'vendor'
   }
 })
 
