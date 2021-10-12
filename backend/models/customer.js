@@ -20,7 +20,7 @@ const customerSchema = mongoose.Schema({
     maxLength: 128
   },
   phone_number : {
-    type: Number,
+    type: String,
     required: true,
   },
   password : {

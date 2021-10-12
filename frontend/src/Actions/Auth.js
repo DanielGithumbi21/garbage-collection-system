@@ -1,21 +1,45 @@
 import { AUTH } from "../constants/actiontypes";
+import * as api from "../api/index"
 
 
-export const signin = (formdata,history) => async (dispatch) => {
+export const customerSignin = (formData,history) => async (dispatch) => {
     try {
-        //log in the user
-        history.push("/")
+        const {data} = await api.customerSignin (formData);
+        dispatch ({type:AUTH,data})
+        history.push("/customer/pickup")
     } catch (error) {
         console.log(error)
     }
 }
 
-export const signup = (formdata,history) => async (dispatch) => {
+export const customerSignup = (formData,history) => async (dispatch) => {
     try {
-        //sign up the user
-        history.push("/")
+        const {data} = await api.customerSignup (formData);
+        dispatch ({type:AUTH,data})
+        history.push("/customer/pickup")
     } catch (error) {
         console.log(error)
     }
 }
+
+export const garbageSignin = (formData,history) => async (dispatch) => {
+    try {
+        const {data} = await api.garbageSignin (formData);
+        dispatch ({type:AUTH,data})
+        history.push("/customer/pickup")
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const garbageSignup = (formData,history) => async (dispatch) => {
+    try {
+        const {data} = await api.garbageSignup (formData);
+        dispatch ({type:AUTH,data})
+        history.push("/customer/pickup")
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
