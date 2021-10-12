@@ -17,12 +17,11 @@ exports.getAllCustomers = async (req, res, next) => {
 }
 exports.createNewCustomer= async (req, res, next) => {
   try {
-    let { first_name, last_name, address, email, phone_number, password } = req.body
-    let customer = await Customer.findOne({ first_name, last_name, email })
+    let { name, address, email, phone_number, password } = req.body
+    let customer = await Customer.findOne({ name, email })
     if (customer) return res.json({ message: 'Customer already exists' })
     let newCustomer = new Customer({
-      first_name, 
-      last_name, 
+      name, 
       address, 
       email, 
       phone_number, 
@@ -99,7 +98,7 @@ exports.logout = async (req, res, next) => {
 
 exports.getBooking = async (req, res, next) => {
   try {
-    let booking = await Book.find().populate('customer', ['first_name','last_name', 'email'])
+    let booking = await Book.find().populate('customer', ['name','email'])
     return res.json(booking)
     } catch (error) {
     console.error(error);

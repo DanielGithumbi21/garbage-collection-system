@@ -2,13 +2,7 @@ const bcrypt = require('bcryptjs');
 
 const mongoose = require('mongoose');
 const customerSchema = mongoose.Schema({
-  first_name : {
-    type: String,
-    required: true,
-    minLength: 3,
-    maxLength: 64
-  },
-  last_name : {
+  name : {
     type: String,
     required: true,
     minLength: 3,

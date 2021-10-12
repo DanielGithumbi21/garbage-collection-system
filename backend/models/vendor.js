@@ -1,18 +1,16 @@
 const bcrypt = require('bcryptjs');
-const Customer = require('./customer')
 
 const mongoose = require('mongoose');
 const vendorSchema = mongoose.Schema({
-  first_name : {
+  name : {
     type: String,
     required: true,
     minLength: 3,
     maxLength: 64
   },
-  last_name : {
+  company : {
     type: String,
     required: true,
-    minLength: 3,
     maxLength: 64
   },
   location : {
