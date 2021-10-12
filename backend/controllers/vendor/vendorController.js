@@ -16,12 +16,12 @@ exports.getAllVendors = async (req, res, next) => {
 }
 exports.createNewVendor= async (req, res, next) => {
   try {
-    let { first_name, last_name, location, email, phone_number, password } = req.body
-    let vendor = await Vendor.findOne({ first_name, last_name, email })
+    let { name,company, location, email, phone_number, password } = req.body
+    let vendor = await Vendor.findOne({ name, email })
     if (vendor) return res.json({ message: 'Vendor already exists' })
     let newVendor = new Vendor({
-      first_name, 
-      last_name, 
+      name, 
+      company,
       location, 
       email, 
       phone_number, 
