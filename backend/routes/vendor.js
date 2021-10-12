@@ -36,6 +36,14 @@ router.route('/logout')
   .get(vendorController.logout)
 
 /*
+  GET/CONFIRM BOOKING REQUEST BY ID SETUP
+*/
+
+router.route('/book/:id')
+  .get(vendorController.getBooking)
+  .patch(vendorController.confirmBooking)
+
+/*
   GET VENDOR BY ID SETUP
 */
 

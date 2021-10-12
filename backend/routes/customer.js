@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const customerController = require('../controllers/customer/customerController')
+const customerController = require('../controllers/customer/customerController');
 
 /*
   REGISTER SETUP
@@ -35,10 +35,10 @@ router.route('/logout')
   .get(customerController.logout)
 
 /*
-  MAKE BOOKING SETUP
+  MAKE BOOKING BY ID SETUP
 */
 
-router.route('/book')
+router.route('/book/:id')
   .get(customerController.getBooking)
   .post(customerController.makeBooking)
 

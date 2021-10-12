@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const Vendor = require('../../models/vendor')
+const Book = require('../../models/booking')
 
 /*
   REGISTER SETUP
@@ -54,7 +55,7 @@ exports.loginVendor = async (req, res, next) => {
     let vendor = await Vendor.findOne({ email })
     if(!vendor) return res.json({ message: 'Kindly register first' })
 
-    let matchPassword = bcrypt.compare(password, vendor.password)
+    let matchPassword = await bcrypt.compare(password, vendor.password)
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
     // req.session.isAuth = true
@@ -92,10 +93,35 @@ exports.logout = async (req, res, next) => {
   }
 }
 
+/*
+  GET/CONFIRM BOOKING REQUEST BY ID SETUP
+*/
+
+exports.getBooking = async (req, res, next) => {
+  try {
+    let booked = await Book.find().populate('customer', ['name','email'])
+    if(req.params.id === String(booked[0].vendor._id)) return res.status(200).json(booked)
+    return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
+    } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+
+exports.confirmBooking = async (req, res, next) => {
+  try {
+    await Book.updateOne({ vendor: req.params.id , status: false},{ $set: { status: true } }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
 
 /*
   GET ONE VENDOR SETUP
 */
+
 exports.getOneVendor = async (req, res, next) => {
   try {
     let vendor = await Vendor.findById({ _id: req.params.id})

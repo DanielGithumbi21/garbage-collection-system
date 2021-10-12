@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
-const Customer = require('../../models/customer')
+
+const Customer = require('../../models/customer');
+const Book = require('../../models/booking');
 
 
 /*
@@ -50,7 +52,7 @@ exports.loginCustomer = async (req, res, next) => {
     let customer = await Customer.findOne({ email })
     if(!customer) return res.json({ message: 'Kindly register first' })
 
-    let matchPassword = bcrypt.compare(password, customer.password)
+    let matchPassword = await bcrypt.compare(password, customer.password)
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
     // const token = jwt.sign({email:customer.email,id:customer._id},secret,{expiresIn:"1h"})
@@ -95,8 +97,9 @@ exports.logout = async (req, res, next) => {
 
 exports.getBooking = async (req, res, next) => {
   try {
-    let booking = await Book.find().populate('customer', ['name','email'])
-    return res.json(booking)
+    let booking = await Book.find().populate('vendor', ['name','email'])
+    if(req.params.id === String(booking[0].customer._id)) return res.json(booking)
+    return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
     } catch (error) {
     console.error(error);
     next(error);
@@ -105,17 +108,21 @@ exports.getBooking = async (req, res, next) => {
 
 exports.makeBooking = async (req, res, next) => {
   try {
-    let { date, status, details, customer } = req.body;
-    let booking = new Book({
-      date, status, details, customer
-    })
+    let { date, status, details, customer, vendor } = req.body;
+    if(req.params.id != String(req.body.customer)) return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
+    let booking = new Book(req.body)
     booking.save()
       .then((result) => res.status(201).json(result))
       .catch(error => console.error(error));
   } catch (error) {
-    
+    console.error(error);
+    next(error);
   }
 }
+
+/*
+  GET ONE CUSTOMER SETUP
+*/
 
 exports.getOneCustomer = async (req, res, next) => {
   try {
