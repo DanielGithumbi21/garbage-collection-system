@@ -26,7 +26,7 @@ export const garbageSignin = (formData,history) => async (dispatch) => {
     try {
         const {data} = await api.garbageSignin (formData);
         dispatch ({type:AUTH,data})
-        history.push("/customer/pickup")
+        history.push("/vendor/booking")
     } catch (error) {
         console.log(error)
     }
@@ -36,7 +36,7 @@ export const garbageSignup = (formData,history) => async (dispatch) => {
     try {
         const {data} = await api.garbageSignup (formData);
         dispatch ({type:AUTH,data})
-        history.push("/customer/pickup")
+        history.push("/vendor/booking")
     } catch (error) {
         console.log(error)
     }

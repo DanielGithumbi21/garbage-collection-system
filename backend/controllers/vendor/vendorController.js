@@ -59,7 +59,7 @@ exports.loginVendor = async (req, res, next) => {
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
     // req.session.isAuth = true
-    return res.json({ message: 'LOGIN SUCCESSFULL' })
+    return res.json(vendor)
   } catch (error) {
     console.error(error);
     next(error);
