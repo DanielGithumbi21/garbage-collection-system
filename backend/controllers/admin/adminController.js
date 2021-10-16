@@ -21,8 +21,8 @@ exports.getAllAdmins = async (req, res, next) => {
 }
 exports.createNewAdmin= async (req, res, next) => {
   try {
-    let { name, email, password } = req.body
-    let admin = await Admin.findOne({ name, email })
+    let { email, password } = req.body
+    let admin = await Admin.findOne({ email })
     if (admin) return res.json({ message: 'Admin already exists' })
     let newAdmin = new Admin(req.body)
     newAdmin.save()
@@ -54,12 +54,12 @@ exports.loginAdmin = async (req, res, next) => {
     let admin = await Admin.findOne({ email })
     if(!admin) return res.json({ message: 'Kindly register first' })
 
-    let matchPassword = await bcrypt.compare(password, customer.password)
+    let matchPassword = await bcrypt.compare(password, admin.password)
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
     // const token = jwt.sign({email:customer.email,id:customer._id},secret,{expiresIn:"1h"})
     // res.json.status(200).json({result:customer,token})
-    res.status(200).json("login successful")
+    res.status(200).json(admin)
   } catch (error) {
     console.error(error);
     next(error);
