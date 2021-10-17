@@ -5,37 +5,6 @@ const Vendor = require('../../models/vendor');
 const Book = require('../../models/booking');
 const Admin = require('../../models/admin');
 
-
-/*
-  REGISTER SETUP
-*/
-
-exports.getAllAdmins = async (req, res, next) => {
-  try {
-    let admins = await Admin.find()
-    return res.json(admins)
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-}
-exports.createNewAdmin= async (req, res, next) => {
-  try {
-    let { email, password } = req.body
-    let admin = await Admin.findOne({ email })
-    if (admin) return res.json({ message: 'Admin already exists' })
-    let newAdmin = new Admin(req.body)
-    newAdmin.save()
-      .then((result) => res.status(201).json(result))
-      .catch(err => console.error(err))
-  //  const result = await Customer.create({first_name,last_name,address,email,phone_number,password})
-  // const token = jwt.sign({email:result.email,id:result._id},secret,{expiresIn:"1h"})
-  // res.status (200).json({result,token})
-} catch (error) {
-  console.log(error)
-}
-}
-
 /*
   LOGIN SETUP
 */
@@ -249,6 +218,21 @@ exports.deleteBooking = async (req, res, next) => {
         if(!result) return res.json({ message: 'Booking does not exist' })
         return res.status(200).json({ message: 'Booking has been deleted' })
       })
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+/*
+  HANDLE BOOKED SETUP
+*/
+
+exports.getAllBooked = async (req, res, next) => {
+  try {
+    await Book.find({ status: true })
+      .then((result) => res.status(200).json(result))
+      .catch(err => console.error(err))
   } catch (error) {
     console.error(error);
     next(error);
