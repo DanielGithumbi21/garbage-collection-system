@@ -4,14 +4,6 @@ const router = express.Router();
 const adminController = require('../controllers/admin/adminController');
 
 /*
-  REGISTER SETUP
-*/
-
-router.route('/register')
-  .get(adminController.getAllAdmins)
-  .post(adminController.createNewAdmin)
-
-/*
   LOGIN SETUP
 */
 
@@ -59,6 +51,13 @@ router.route('/vendors/:id')
 
 router.route('/bookings')
   .get(adminController.getAllBookings)
+
+/*
+  HANDLE BOOKED SETUP
+*/
+
+router.route('/booked')
+  .get(adminController.getAllBooked)
 
 /*
   HANDLE BOOK BY ID SETUP
