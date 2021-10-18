@@ -43,6 +43,14 @@ router.route('/book/:id')
   .post(customerController.makeBooking)
 
 /*
+  MAKE PAYMENT BY ID SETUP
+*/
+
+router.route('/pay/:id')
+  .get(customerController.getPayment)
+  .post(customerController.makePayment)
+
+/*
   GET CUSTOMER BY ID SETUP
 */
 

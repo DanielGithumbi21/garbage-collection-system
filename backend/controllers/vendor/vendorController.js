@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
+
 const Vendor = require('../../models/vendor');
 const Book = require('../../models/booking');
+const Pay = require('../../models/payment');
 
 /*
   REGISTER SETUP
@@ -101,7 +103,7 @@ exports.getBooking = async (req, res, next) => {
   try {
     let booked = await Book.find().populate('customer', ['name','email'])
     if(req.params.id === String(booked[0].vendor._id)) return res.status(200).json(booked)
-    return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
+    return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED VENDOR' })
     } catch (error) {
     console.error(error);
     next(error);
@@ -112,6 +114,31 @@ exports.getBooking = async (req, res, next) => {
 exports.confirmBooking = async (req, res, next) => {
   try {
     await Book.updateOne({ vendor: req.params.id , status: false},{ $set: { status: true } }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+/*
+  GET/CONFIRM PAYMENT REQUEST BY ID SETUP
+*/
+
+exports.getPayment = async (req, res, next) => {
+  try {
+    let payed = await Pay.find().populate('customer', ['name','email'])
+    if(req.params.id === String(payed[0].vendor._id)) return res.status(200).json(payed)
+    return res.json({ message: 'THIS PAYMENT DOES NOT BELONG TO THE SPECIFIED VENDOR' })
+    } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+
+exports.confirmPayment = async (req, res, next) => {
+  try {
+    await Pay.updateOne({ vendor: req.params.id , received: false},{ $set: { received: true } }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
   } catch (error) {
     console.error(error);
     next(error);

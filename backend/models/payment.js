@@ -16,6 +16,10 @@ const paymentSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  received : {
+      type: Boolean,
+      default: false
+  },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'customer'

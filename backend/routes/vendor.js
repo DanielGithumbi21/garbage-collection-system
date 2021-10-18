@@ -44,6 +44,14 @@ router.route('/book/:id')
   .patch(vendorController.confirmBooking)
 
 /*
+  GET/CONFIRM PAYMENT REQUEST BY ID SETUP
+*/
+
+router.route('/pAY/:id')
+  .get(vendorController.getPayment)
+  .patch(vendorController.confirmPayment)
+
+/*
   GET VENDOR BY ID SETUP
 */
 

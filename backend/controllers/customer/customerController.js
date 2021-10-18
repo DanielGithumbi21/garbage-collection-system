@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 
 const Customer = require('../../models/customer');
 const Book = require('../../models/booking');
+const Pay = require('../../models/payment')
 
 
 /*
@@ -112,6 +113,35 @@ exports.makeBooking = async (req, res, next) => {
     if(req.params.id != String(req.body.customer)) return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
     let booking = new Book(req.body)
     booking.save()
+      .then((result) => res.status(201).json(result))
+      .catch(error => console.error(error));
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+/*
+  MAKE PAYMENT BY ID SETUP
+*/
+
+exports.getPayment = async (req, res, next) => {
+  try {
+    let payment = await Pay.find().populate('vendor', ['name','email'])
+    if(req.params.id === String(payment[0].customer._id)) return res.json(payment)
+    return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
+    } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+exports.makePayment = async (req, res, next) => {
+  try {
+    let { type, amount, details, customer, vendor } = req.body;
+    if(req.params.id != String(req.body.customer)) return res.json({ message: 'THIS PAYMENT DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
+    let payment = new Pay(req.body)
+    payment.save()
       .then((result) => res.status(201).json(result))
       .catch(error => console.error(error));
   } catch (error) {
