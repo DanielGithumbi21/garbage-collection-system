@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
-const Vendor = require('../../models/vendor')
-const Book = require('../../models/booking')
+const Vendor = require('../../models/vendor');
+const Book = require('../../models/booking');
 
 /*
   REGISTER SETUP
