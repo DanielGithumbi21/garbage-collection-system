@@ -34,6 +34,7 @@ const GarbageSign = () => {
             if (json.message) {
                 setErrors(json.message)
             } else {
+                localStorage.setItem("profile",JSON.stringify({json}))
                 history.push("/vendor/booking")
             }
         })

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import Navbar from '../Navbar/Navbar';
+import CustomerNavbar from '../Navbar/customerNavbar/Navbar';
 import "./sign.css"
 const SchedulePickUp = () => {
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -36,7 +36,7 @@ const SchedulePickUp = () => {
      }
     return (
         <div>
-            <Navbar/>
+            <CustomerNavbar/>
             <div className="container booking mt-5">
             <div className='row padding' >
                 {data.map(vendor => (
@@ -44,10 +44,10 @@ const SchedulePickUp = () => {
                 
                 <div className='card text-center row' style={{width:"18rem"}}>
                     <div >
-                        <h5>{vendor.first_name} {vendor.last_name}</h5>
+                        <h5>{vendor.name}</h5>
                         <h5>Located in {vendor.location}</h5>
                         <Link to ="booking">
-                        <button className='btn btn-md btn-info' onClick={() => buttonHandler(vendor._id,vendor.first_name)}>Make a booking</button>
+                        <button className='btn btn-md btn-info' onClick={() => buttonHandler(vendor._id,vendor.name)}>Make a booking</button>
                         </Link>
                     </div>
                 </div>
