@@ -7,6 +7,7 @@ import CustomerSign from "./components/customer/Sign"
 import SchedulePickUp from './components/customer/pickUp';
 import CustomerBooking from './components/customer/Booking';
 import BookingsMade from './components/GarbageCollector/BookingsMade';
+import Admin from './components/Admin/Admin';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/customer/pickup"  component = {SchedulePickUp}/>
         <Route path="/customer/booking" component={CustomerBooking}/>
         <Route path="/vendor/booking" component={BookingsMade}/>
+        <Route path="/admin" component={Admin}/>
       </Router>
     </div>
   )

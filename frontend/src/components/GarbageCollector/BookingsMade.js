@@ -14,7 +14,7 @@ const BookingsMade = () => {
     },[])
     const getData = async () => {
         try{
-            const response = await fetch (`http://localhost:5000/vendor/book/${user._id}`)
+            const response = await fetch (`http://localhost:5000/vendor/book/${user.json._id}`)
         const result = await response.json();
         console.log(result)
         console.log(user._id)
@@ -38,7 +38,7 @@ const BookingsMade = () => {
         <div>
             <Navbar/>
             <div className="container booking mt-5">
-                <h4 className='text-center'>Here are your orders, {user.first_name}</h4>
+                <h4 className='text-center'>Here are your orders, {user.json.first_name}</h4>
             <div className='row padding' >
             {data.map(vendor => ( 
                 <div className='card text-center row' style={{width:"20rem"}}>

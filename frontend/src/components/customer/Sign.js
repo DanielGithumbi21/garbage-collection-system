@@ -9,7 +9,7 @@ const CustomerSign = () => {
     const [isSignUp,setIsSignUp] = useState(true);
     const [formData, setFormData] = useState(initialState)
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    const [errors,setErrors] = useState([]);
+    const [errors,setErrors] = useState();
     const dispatch = useDispatch ();
     const history = useHistory ();
     const switchmode = () => {
@@ -25,10 +25,50 @@ const CustomerSign = () => {
     const onSubmit = (e) => {
         e.preventDefault()
         if (isSignUp) {
-            dispatch(customerSignup(formData,history))
-        }else{
-            dispatch(customerSignin(formData,history))
+            fetch ("http://localhost:5000/customer/register", {
+                method:"POST",
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify (formData)
+            })
+            .then(res => res.json())
+            .then(json => {
+                console.log("json",json)
+                if (json.message) {
+                    setErrors(json.message)
+                } else {
+                    history.push("/customer/pickup")
+                }
+            })
+        }else {
+            fetch ("http://localhost:5000/customer/login", {
+                method:"POST",
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify (formData)
+            })
+            .then(res => res.json())
+            .then(json => {
+                console.log("json",json)
+                if (json.message) {
+                    history.push("sign")
+                    setErrors(json.message)
+                    
+                        
+                
+                } else {
+                    localStorage.setItem("profile",JSON.stringify({json}))
+                    history.push("/customer/pickup")
+                }
+            })
         }
+        // if (isSignUp) {
+        //     dispatch(customerSignup(formData,history))
+        // }else{
+        //     dispatch(customerSignin(formData,history))
+        // }
         // if (user.message) {
         //     history.go(0)
         // }
@@ -37,13 +77,13 @@ const CustomerSign = () => {
    
     return (
         <div className="container sign mt-5">
-            {/* {user?
+             {errors?
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Hey, </strong> {user.message}
+         {errors}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
             :""}
-             */}
+            
             <div className="row padding">
                 <div className="col-lg-6 col-md-6 col-sm-12">
                     {isSignUp?

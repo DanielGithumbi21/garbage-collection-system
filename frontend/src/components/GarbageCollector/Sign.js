@@ -5,8 +5,9 @@ import { useHistory } from 'react-router';
 import {garbageSignin,garbageSignup} from "../../Actions/Auth"
 import * as api from "../../api/index"
 const GarbageSign = () => {
-    const initialState = {first_name:'',last_name:'',email:'',phone_number:'',location:'',password:''}
+    const initialState = {name:'',company:'',email:'',phone_number:'',location:'',password:''}
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [errors,setErrors] = useState ();
     const [isSignUp,setIsSignUp] = useState(true);
     const [formData, setFormData] = useState(initialState)
     const dispatch = useDispatch ();
@@ -20,17 +21,62 @@ const GarbageSign = () => {
     const onSubmit = (e) => {
         e.preventDefault()
         if (isSignUp) {
-            dispatch(garbageSignup(formData,history))
-        }else{
-            dispatch(garbageSignin(formData,history))
-        }
+        fetch ("http://localhost:5000/vendor/register", {
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify (formData)
+        })
+        .then(res => res.json())
+        .then(json => {
+            console.log("json",json)
+            if (json.message) {
+                setErrors(json.message)
+            } else {
+                history.push("/vendor/booking")
+            }
+        })
+    }else {
+        fetch ("http://localhost:5000/vendor/login", {
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify (formData)
+        })
+        .then(res => res.json())
+        .then(json => {
+            console.log("json",json)
+            if (json.message) {
+                setErrors(json.message)
+            } else {
+                localStorage.setItem("profile",JSON.stringify({json}))
+                history.push("/vendor/booking")
+            }
+        })
+    }
+        // localStorage.clear()
+        // if (isSignUp) {
+        //     dispatch(garbageSignup(formData,history))
+        // }else{
+        //     dispatch(garbageSignin(formData,history))
+        // }
+        // if (user.message) {
+        //     history.go(0)
+        // }
     }
    
     
     return (
         <div className="container sign mt-5">
             <div className="row padding">
-                
+            {errors?
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Hey, </strong> {errors}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+            :""}
                 <div className="col-lg-6 col-md-6 col-sm-12">
                     {isSignUp?
                     <>  
@@ -52,14 +98,14 @@ const GarbageSign = () => {
                     <div className="row padding">
                     <div className="col-lg-6 col-md-6 col-sm-12">
                     <div class="form-floating mb-3">
-                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="John" name='first_name' required/>
-                        <label for="floatingInput">First Name</label>
+                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="John" name='name' required/>
+                        <label for="floatingInput">Name</label>
                     </div>  
                     </div>
                     <div className="col-lg-6">
                     <div class="form-floating mb-3">
-                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="Doe" name='last_name' required/>
-                        <label for="floatingInput">Last Name</label>
+                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="Doe" name='company' required/>
+                        <label for="floatingInput">Company</label>
                     </div> 
                     </div>
                     </div>

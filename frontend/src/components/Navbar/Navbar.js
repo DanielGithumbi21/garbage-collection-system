@@ -31,7 +31,7 @@ const Navbar = () => {
                     <span style={{color:"black"}} className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <h5 style={{color:"white"}}>Welcome, {user.first_name}</h5>
+                    <h5 style={{color:"white"}}>Welcome, {user.json.first_name}</h5>
                     <button className="btn btn-danger btn-md" onClick={logout} >Logout</button>
                     </div>
                     
