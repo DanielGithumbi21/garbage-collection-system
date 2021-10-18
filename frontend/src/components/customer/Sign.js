@@ -5,7 +5,7 @@ import { Redirect, useHistory } from 'react-router';
 import {customerSignin,customerSignup} from "../../Actions/Auth"
 import * as api from "../../api/index"
 const CustomerSign = () => {
-    const initialState = {first_name:'',last_name:'',email:'',phone_number:'',address:'',password:''}
+    const initialState = {name:'',email:'',phone_number:'',address:'',password:''}
     const [isSignUp,setIsSignUp] = useState(true);
     const [formData, setFormData] = useState(initialState)
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -38,6 +38,7 @@ const CustomerSign = () => {
                 if (json.message) {
                     setErrors(json.message)
                 } else {
+                    localStorage.setItem("profile",JSON.stringify({json}))
                     history.push("/customer/pickup")
                 }
             })
@@ -105,22 +106,8 @@ const CustomerSign = () => {
                     <div className="row padding">
                     <div className="col-lg-6 col-md-6 col-sm-12">
                     <div class="form-floating mb-3">
-                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="John" name='first_name' required/>
-                        <label for="floatingInput">First Name</label>
-                    </div>  
-                    </div>
-                    <div className="col-lg-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="Doe" name='last_name' required/>
-                        <label for="floatingInput">Last Name</label>
-                    </div> 
-                    </div>
-                    </div>
-                    <div className="row padding">
-                    <div className="col-lg-6 col-md-6 col-sm-12">
-                    <div class="form-floating mb-3">
-                        <input type="email" onChange={handleChange} class="form-control" id="floatingInput" placeholder="name@example.com" name='email' required/>
-                        <label for="floatingInput">Email Address</label>
+                        <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="John" name='name' required/>
+                        <label for="floatingInput">Name</label>
                     </div>  
                     </div>
                     <div className="col-lg-6">
@@ -128,8 +115,17 @@ const CustomerSign = () => {
                         <input type="text" onChange={handleChange} class="form-control" id="floatingInput" placeholder="07********" name='phone_number' required/>
                         <label for="floatingInput">Phone Number</label>
                     </div> 
+                    
                     </div>
                     </div>
+                    
+                    
+                    <div class="form-floating mb-3">
+                        <input type="email" onChange={handleChange} class="form-control" id="floatingInput" placeholder="name@example.com" name='email' required/>
+                        <label for="floatingInput">Email Address</label>
+                    </div>  
+                    
+                    
                     <div class="form-floating mb-3">
                         <input type="text" onChange={handleChange} class="form-control" id="floatingPassword" placeholder="Kikuyu" name="address" required/>
                         <label for="floatingPassword">Address</label>

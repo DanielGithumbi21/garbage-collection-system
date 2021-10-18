@@ -14,3 +14,14 @@
 .banner .home-btn {
     width: 70%;
 }
+@media screen and (max-width:920px) {
+    .banner {
+        margin-top: 25% !important;
+    }
+    .banner img{
+        display: none;
+    }
+    .banner .home-btn {
+        width: 100%;
+    }
+}

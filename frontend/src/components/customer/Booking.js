@@ -1,8 +1,10 @@
 import React,{useState,useEffect} from 'react';
-import Navbar from '../Navbar/Navbar';
 import { useHistory, useLocation } from 'react-router';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import "./sign.css"
 import axios from 'axios';
+import CustomerNavbar from '../Navbar/customerNavbar/Navbar';
 
 const CustomerBooking = () => {
     const history = useHistory()
@@ -10,6 +12,7 @@ const CustomerBooking = () => {
     const [currentvendorName,setCurrentvendorName] = useState(JSON.parse(localStorage.getItem('currentvendor')));
     const [currentvendorId,setCurrentvendorId] = useState(JSON.parse(localStorage.getItem('currentvendorId')));
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [startDate, setStartDate] = useState(new Date());
    
     const location = useLocation();
     useEffect (() => {
@@ -24,7 +27,7 @@ const CustomerBooking = () => {
         // const token =user?.token;
         setUser(JSON.parse(localStorage.getItem('profile')))
     },[location])
-    const initialState = {date:"",details:""}
+    const initialState = {details:""}
     const [formData, setFormData] = useState(initialState)
     const handleChange =(e) => {
         setFormData({...formData,[e.target.name]:e.target.value})
@@ -34,8 +37,8 @@ const CustomerBooking = () => {
         e.preventDefault()
         // dispatch(customerBooking(formData,history))
         const vendor = currentvendorId.id;
-        const customer = user._id
-        const date = formData.date
+        const customer = user.json._id
+        const date = startDate
         const details = formData.details
 
         const post = {
@@ -55,14 +58,22 @@ const CustomerBooking = () => {
     
     return (
         <div>
-            <Navbar/>
+            <CustomerNavbar/>
             <div className='container vendor-booking mt-2'>
                 <h5 className='text-center'>Make a booking from, {currentvendorName.name}</h5>
                 <div className='card'>
             <form onSubmit={onSubmit} >
             <div class="form-floating mb-3">
-                        <input type="text"  onChange={handleChange} class="form-control" id="floatingPassword" placeholder="Kikuyu" name="date" required/>
-                        <label for="floatingPassword">Date</label>
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={60}
+              timeCaption="time"
+              dateFormat="MMMM d, yyyy h:mm aa"
+              className="form-control date"
+          />
                     </div>
                    
                     <div class="form-floating mb-3">

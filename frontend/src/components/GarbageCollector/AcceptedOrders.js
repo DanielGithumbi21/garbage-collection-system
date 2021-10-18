@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 import VendorNavbar from '../Navbar/vendorNavbar/Navbar';
-const BookingsMade = () => {
+const AcceptedOrders = () => {
     const options = { year: "numeric", month: "long", day: "numeric",hour: '2-digit', minute: '2-digit' }
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const location = useLocation ();
     const [data,setData] = useState([]);
-    const history = useHistory()
+    const [accepted,setAccepted] = useState()
+  console.log(user.json._id)
     useEffect (() => {
         getData ()
     },[])
@@ -17,6 +20,13 @@ const BookingsMade = () => {
             const response = await fetch (`http://localhost:5000/vendor/book/${user.json._id}`)
         const result = await response.json();
         console.log(result)
+        result.map ((customer )=> {
+            if (customer.status == 'true') {
+                setAccepted(customer.status)
+                console.log(customer.status)
+            }
+           
+        })
         setData(result)
         }
         catch (error) {
@@ -30,34 +40,18 @@ const BookingsMade = () => {
         setUser(JSON.parse(localStorage.getItem('profile')))
     },[location])
     
-     useEffect (() => {
-        onClick()
-     },[])
-     const onClick =  () => {
-        data.map ((customer ) => {
-            
-               axios.patch(`http://localhost:5000/vendor/book/${customer.vendor}`)
-               history.go(0)
-           
-        })
-       
-      
-    }
     return (
         <div>
             <VendorNavbar/>
             <div className="container booking mt-5">
-                {data.length < 1?<div>
-                    <h5>Currently there are no orders</h5>
-                </div>:
-                <>               
+                {data.length < 1 ? <div><h5>You do not have any accepted orders for now</h5></div>:<>
                 <h4 className='text-center'>Here are your orders, {user.json.name}</h4>
             <div className='row padding' >
                          
             {data.map(vendor => ( 
                 <>
-                 {vendor.status === 'true'?  
-                    <div className='card text-center row' style={{width:"21rem"}}>
+                 {vendor.status == "true"?  
+                    <div className='card text-center row' style={{width:"20rem"}}>
                         <div >
                             <h6 className='mb-2'>customer: </h6><p> {vendor.customer.email}</p>
                             <h6 className='mb-2'>Date: </h6><p>{new Date(vendor.date).toLocaleDateString(undefined, options)}</p>
@@ -71,38 +65,21 @@ const BookingsMade = () => {
                             </div>
                         </div>
                     </div>
-                    :<div className='card text-center row' style={{width:"20rem"}}>
-                    <div >
-                    <h6 className='mb-2'>customer: </h6><p> {vendor.customer.email}</p>
-                    <h6 className='mb-2'>Date: </h6><p>{new Date(vendor.date).toLocaleDateString(undefined, options)}</p>                            <p className='lead'> {vendor.details}</p>
-                            <div className='m-2'>
-                        <>
-                        
-                        <button className='btn btn-md btn-info m-2' onClick={onClick }  >Accept</button>
-                       
-                        
-                        <button className='btn btn-md btn-danger' >Decline</button>
-                        
-                        </>
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                }
+                    : <h5>You do not have any accepted orders for now</h5>}
                     </>
     
     ))}
-    </div>
-    </>
+    
+   
+
+           
+           
+                </div>
+                </>
 }
-
-
-
              </div>
         </div>
-
     )
 }
-export default BookingsMade;
+export default AcceptedOrders;
 

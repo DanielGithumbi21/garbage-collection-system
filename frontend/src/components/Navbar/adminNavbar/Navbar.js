@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import "../customer/sign.css"
-const Navbar = () => {
+import "../../customer/sign.css"
+const AdminNavbar = () => {
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const dispatch = useDispatch();
     const history = useHistory();
@@ -44,5 +44,5 @@ const Navbar = () => {
         </div>
     )
 }
-export default Navbar;
+export default AdminNavbar;
 
