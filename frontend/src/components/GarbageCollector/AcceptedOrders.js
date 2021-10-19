@@ -12,28 +12,7 @@ const AcceptedOrders = () => {
     const [data,setData] = useState([]);
     const [accepted,setAccepted] = useState()
   console.log(user.json._id)
-    useEffect (() => {
-        getData ()
-    },[])
-    const getData = async () => {
-        try{
-            const response = await fetch (`http://localhost:5000/vendor/book/${user.json._id}`)
-        const result = await response.json();
-        console.log(result)
-        result.map ((customer )=> {
-            if (customer.status == 'true') {
-                setAccepted(customer.status)
-                console.log(customer.status)
-            }
-           
-        })
-        setData(result)
-        }
-        catch (error) {
-            console.log(error)
-        }
-        
-    }
+ 
     
     useEffect (() => {
         // const token =user?.token;

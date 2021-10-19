@@ -11,7 +11,7 @@ const AdminNavbar = () => {
     const location = useLocation ();
     const logout = () => {
         dispatch({type:"LOGOUT"});
-        history.push("/")
+        history.push("/admin")
         setUser(null)
     }
     useEffect (() => {
@@ -31,12 +31,32 @@ const AdminNavbar = () => {
                     <span style={{color:"black"}} className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <h5 style={{color:"white"}}>Welcome, {user.json.first_name}</h5>
-                    <button className="btn btn-danger btn-md" onClick={logout} >Logout</button>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link" href='/admin/dashboard'>Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href='/admin/vendors'>Vendors</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href='/admin/customers'>Customers</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                    <a class="nav-link" href='/admin/bookings'>Bookings</a>
+                    </li>
+                    
+                    
+                </ul>
+                <div className='mb-3'>
+                <h7 style={{color:"white"}} >Welcome, admin</h7> <br/>
+                </div>
+               <div>
+               <button className="btn btn-danger btn-md" onClick={logout} >Logout</button>
+               </div>
+                </div>
                     </div>
                     
-                    
-                </div>
             </nav>
             </>
            

@@ -7,10 +7,13 @@ import CustomerSign from "./components/customer/Sign"
 import SchedulePickUp from './components/customer/pickUp';
 import CustomerBooking from './components/customer/Booking';
 import BookingsMade from './components/GarbageCollector/BookingsMade';
-import Admin from './components/Admin/Admin';
 import Dashboard from './components/Admin/dashboard';
 import AcceptedOrders from './components/GarbageCollector/AcceptedOrders';
 import AcceptedBookings from './components/customer/acceptedBookings';
+import AdminSign from './components/Admin/Admin';
+import CustomersData from './components/Admin/customers';
+import VendorsData from './components/Admin/vendors';
+import BookingsData from './components/Admin/bookings';
 
 const App = () => {
   return (
@@ -24,8 +27,11 @@ const App = () => {
         <Route path="/vendor/booking" component={BookingsMade}/>
         <Route path="/vendor/accepted-orders" component={AcceptedOrders}/>
         <Route path="/customer/accepted-orders" component={AcceptedBookings}/>
-        <Route path="/admin" exact component={Admin}/>
+        <Route path="/admin" exact component={AdminSign}/>
         <Route path="/admin/dashboard" component={Dashboard}/>
+        <Route path="/admin/customers" component={CustomersData}/>
+        <Route path="/admin/vendors" component={VendorsData}/>
+        <Route path="/admin/bookings" component={BookingsData}/>
       </Router>
     </div>
   )
