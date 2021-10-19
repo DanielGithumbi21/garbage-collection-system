@@ -20,6 +20,10 @@ const paymentSchema = mongoose.Schema({
       type: Boolean,
       default: false
   },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'customer'

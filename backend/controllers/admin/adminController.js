@@ -26,8 +26,6 @@ exports.loginAdmin = async (req, res, next) => {
     let matchPassword = await bcrypt.compare(password, admin.password)
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
-    // const token = jwt.sign({email:customer.email,id:customer._id},secret,{expiresIn:"1h"})
-    // res.json.status(200).json({result:customer,token})
     res.status(200).json(admin)
   } catch (error) {
     console.error(error);
@@ -186,6 +184,8 @@ exports.getAllBookings = async (req, res, next) => {
 exports.getBooking = async (req, res, next) => {
   try {
     await Book.findOne({ _id: req.params.id })
+      .populate('customer', ['name','email'])
+      .populate('vendor', ['name','email'])
       .then((result) => {
         if(!result) return res.json({ message: 'Booking does not exist' })
         res.status(200).json(result)
@@ -213,7 +213,7 @@ exports.patchBooking = async (req, res, next) => {
 
 exports.deleteBooking = async (req, res, next) => {
   try {
-    await Vendor.deleteOne({ _id: req.params.id }, { new: true })
+    await Book.deleteOne({ _id: req.params.id }, { new: true })
       .then((result) => {
         if(!result) return res.json({ message: 'Booking does not exist' })
         return res.status(200).json({ message: 'Booking has been deleted' })
