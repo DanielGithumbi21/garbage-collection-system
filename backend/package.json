@@ -13,12 +13,11 @@
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
     "express": "~4.16.1",
-    "express-session": "^1.17.2",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.8",
+    "mongoose": "^6.0.11",
+    "mongoose-currency": "^0.2.0",
     "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.14"
   }
 }

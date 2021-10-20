@@ -42,12 +42,13 @@ router.route('/logout')
 router.route('/book/:id')
   .get(vendorController.getBooking)
   .patch(vendorController.confirmBooking)
+  .delete(vendorController.deleteBooking)
 
 /*
   GET/CONFIRM PAYMENT REQUEST BY ID SETUP
 */
 
-router.route('/pAY/:id')
+router.route('/pay/:id')
   .get(vendorController.getPayment)
   .patch(vendorController.confirmPayment)
 

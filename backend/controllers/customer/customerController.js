@@ -27,12 +27,10 @@ exports.createNewCustomer= async (req, res, next) => {
     newCustomer.save()
       .then((result) => res.status(201).json(result))
       .catch(err => console.error(err))
-  //  const result = await Customer.create({first_name,last_name,address,email,phone_number,password})
-  // const token = jwt.sign({email:result.email,id:result._id},secret,{expiresIn:"1h"})
-  // res.status (200).json({result,token})
-} catch (error) {
-  console.log(error)
-}
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 }
 
 /*
@@ -55,9 +53,7 @@ exports.loginCustomer = async (req, res, next) => {
 
     let matchPassword = await bcrypt.compare(password, customer.password)
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
-
-    // const token = jwt.sign({email:customer.email,id:customer._id},secret,{expiresIn:"1h"})
-    // res.json.status(200).json({result:customer,token})
+    
     res.status(200).json(customer)
   } catch (error) {
     console.error(error);
@@ -129,7 +125,7 @@ exports.getPayment = async (req, res, next) => {
   try {
     let payment = await Pay.find().populate('vendor', ['name','email'])
     if(req.params.id === String(payment[0].customer._id)) return res.json(payment)
-    return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
+    return res.json({ message: 'THIS PAYMENT DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
     } catch (error) {
     console.error(error);
     next(error);

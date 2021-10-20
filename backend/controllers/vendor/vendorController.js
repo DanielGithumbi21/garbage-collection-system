@@ -22,14 +22,7 @@ exports.createNewVendor= async (req, res, next) => {
     let { name,company, location, email, phone_number, password } = req.body
     let vendor = await Vendor.findOne({ name, email })
     if (vendor) return res.json({ message: 'Vendor already exists' })
-    let newVendor = new Vendor({
-      name, 
-      company,
-      location, 
-      email, 
-      phone_number, 
-      password
-    })
+    let newVendor = new Vendor(req.body)
     newVendor.save()
       .then((result) => res.status(201).json(result))
       .catch(err => console.error(err))
@@ -60,7 +53,6 @@ exports.loginVendor = async (req, res, next) => {
     let matchPassword = await bcrypt.compare(password, vendor.password)
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
-    // req.session.isAuth = true
     return res.json(vendor)
   } catch (error) {
     console.error(error);
@@ -96,7 +88,7 @@ exports.logout = async (req, res, next) => {
 }
 
 /*
-  GET/CONFIRM BOOKING REQUEST BY ID SETUP
+  GET/CONFIRM/DELETE BOOKING REQUEST BY ID SETUP
 */
 
 exports.getBooking = async (req, res, next) => {
@@ -114,6 +106,15 @@ exports.getBooking = async (req, res, next) => {
 exports.confirmBooking = async (req, res, next) => {
   try {
     await Book.updateOne({ vendor: req.params.id , status: false},{ $set: { status: true } }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+exports.deleteBooking = async (req, res, next) => {
+  try {
+    await Book.deleteOne({ vendor: req.params.id }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
   } catch (error) {
     console.error(error);
     next(error);
