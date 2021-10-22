@@ -19,13 +19,19 @@ exports.getAllVendors = async (req, res, next) => {
 }
 exports.createNewVendor= async (req, res, next) => {
   try {
-    let { name,company, location, email, phone_number, password } = req.body
-    let vendor = await Vendor.findOne({ name, email })
-    if (vendor) return res.json({ message: 'Vendor already exists' })
+    let { name,company, location, email, phone_number, password } = req.body;
+
+    await Vendor.findOne({ 'name': req.body.name, 'email': req.body.email })
+      .then((vendor) => {
+        if (vendor) return res.json({ message: 'Vendor already exists' })
+      })
+      .catch((error) => console.error(error))
+
     let newVendor = new Vendor(req.body)
     newVendor.save()
       .then((result) => res.status(201).json(result))
       .catch(err => console.error(err))
+
   } catch (error) {
     console.error(error);
     next(error);
@@ -53,7 +59,11 @@ exports.loginVendor = async (req, res, next) => {
     let matchPassword = await bcrypt.compare(password, vendor.password)
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
-    return res.json(vendor)
+    return res.json({
+      message: 'Login Succesful',
+      vendor
+    })
+
   } catch (error) {
     console.error(error);
     next(error);
@@ -93,9 +103,13 @@ exports.logout = async (req, res, next) => {
 
 exports.getBooking = async (req, res, next) => {
   try {
-    let booked = await Book.find().populate('customer', ['name','email'])
-    if(req.params.id === String(booked[0].vendor._id)) return res.status(200).json(booked)
-    return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED VENDOR' })
+    await Book.find()
+      .populate('customer', ['name','email'])
+      .then((booked) => {
+        if(req.params.id === String(booked[0].vendor._id)) return res.status(200).json(booked)
+      })
+      .then(() => res.json({ message: 'This Vendor has not made any booking' }))
+      .catch((error) => console.error(error))  
     } catch (error) {
     console.error(error);
     next(error);

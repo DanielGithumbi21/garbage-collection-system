@@ -21,12 +21,21 @@ exports.getAllCustomers = async (req, res, next) => {
 exports.createNewCustomer= async (req, res, next) => {
   try {
     let { name, address, email, phone_number, password } = req.body
-    let customer = await Customer.findOne({ name, email })
-    if (customer) return res.json({ message: 'Customer already exists' })
+
+    await Customer.findOne({ 'name': req.body.name, 'email': req.body.email })
+      .then((customer) => {
+        if(customer) return res.json({ message: 'Customer already exists' })
+      } )
+      .catch(error => console.error(error))
+
     let newCustomer = new Customer(req.body)
     newCustomer.save()
-      .then((result) => res.status(201).json(result))
+      .then((result) => res.status(201).json({
+        message: 'Customer Created',
+        result
+      }))
       .catch(err => console.error(err))
+
   } catch (error) {
     console.log(error);
     next(error);
@@ -54,7 +63,10 @@ exports.loginCustomer = async (req, res, next) => {
     let matchPassword = await bcrypt.compare(password, customer.password)
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
     
-    res.status(200).json(customer)
+    res.status(200).json({
+      message: 'Login Succesful',
+      customer
+    })
   } catch (error) {
     console.error(error);
     next(error);
@@ -94,9 +106,13 @@ exports.logout = async (req, res, next) => {
 
 exports.getBooking = async (req, res, next) => {
   try {
-    let booking = await Book.find().populate('vendor', ['name','email'])
-    if(req.params.id === String(booking[0].customer._id)) return res.json(booking)
-    return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
+    await Book.find()
+      .populate('vendor', ['name','email'])
+      .then((booking) => {
+        if(req.params.id === String(booking[0].customer._id)) return res.json(booking)
+      })
+      .then(() => res.json({ message: 'This Customer has not made any booking' }))
+      .catch((error) => console.error(error))
     } catch (error) {
     console.error(error);
     next(error);
@@ -106,9 +122,14 @@ exports.getBooking = async (req, res, next) => {
 exports.makeBooking = async (req, res, next) => {
   try {
     let { date, status, details, customer, vendor } = req.body;
-    if(req.params.id != String(req.body.customer)) return res.json({ message: 'THIS BOOKING DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
-    let booking = new Book(req.body)
-    booking.save()
+
+    if(req.params.id != String(req.body.customer)) return res.json({ message: 'This Customer is not related to the booking being made' })
+
+    // let booking = await Book.findOne({ 'details': req.body.details })
+    // if(booking) return res.json({ message: 'This booking already exists' })
+
+    let newBooking = new Book(req.body)
+    newBooking.save()
       .then((result) => res.status(201).json(result))
       .catch(error => console.error(error));
   } catch (error) {
@@ -123,9 +144,13 @@ exports.makeBooking = async (req, res, next) => {
 
 exports.getPayment = async (req, res, next) => {
   try {
-    let payment = await Pay.find().populate('vendor', ['name','email'])
-    if(req.params.id === String(payment[0].customer._id)) return res.json(payment)
-    return res.json({ message: 'THIS PAYMENT DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
+    await Pay.find()
+      .populate('vendor', ['name','email'])
+      .then((payment) => {
+        if(req.params.id === String(payment[0].customer._id)) return res.json(payment)
+      })
+      .then(() => res.json({ message: 'This Customer has not made any payment' }))
+      .catch((error) => console.error(error))
     } catch (error) {
     console.error(error);
     next(error);
@@ -135,9 +160,14 @@ exports.getPayment = async (req, res, next) => {
 exports.makePayment = async (req, res, next) => {
   try {
     let { type, amount, details, customer, vendor } = req.body;
-    if(req.params.id != String(req.body.customer)) return res.json({ message: 'THIS PAYMENT DOES NOT BELONG TO THE SPECIFIED CUSTOMER' })
-    let payment = new Pay(req.body)
-    payment.save()
+
+    if(req.params.id != String(req.body.customer)) return res.json({ message: 'This Customer is not related to the payment being made' })
+
+    // let payment = await Book.findOne({ 'details': req.body.details })
+    // if(booking) return res.json({ message: 'This booking already exists' })
+
+    let newPayment = new Pay(req.body)
+    newPayment.save()
       .then((result) => res.status(201).json(result))
       .catch(error => console.error(error));
   } catch (error) {
