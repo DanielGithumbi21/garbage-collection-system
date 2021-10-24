@@ -35,7 +35,7 @@ router.route('/logout')
   .get(customerController.logout)
 
 /*
-  MAKE BOOKING BY ID SETUP
+  GET/MAKE BOOKING BY ID SETUP
 */
 
 router.route('/book/:id')

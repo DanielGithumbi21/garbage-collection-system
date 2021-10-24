@@ -106,12 +106,12 @@ exports.logout = async (req, res, next) => {
 
 exports.getBooking = async (req, res, next) => {
   try {
-    await Book.find()
+    await Book.find({'customer': req.params.id})
       .populate('vendor', ['name','email'])
       .then((booking) => {
         if(req.params.id === String(booking[0].customer._id)) return res.json(booking)
+          return res.json({ message: 'This Customer has not made any booking' })
       })
-      .then(() => res.json({ message: 'This Customer has not made any booking' }))
       .catch((error) => console.error(error))
     } catch (error) {
     console.error(error);
@@ -144,12 +144,12 @@ exports.makeBooking = async (req, res, next) => {
 
 exports.getPayment = async (req, res, next) => {
   try {
-    await Pay.find()
+    await Pay.find({'customer': req.params.id})
       .populate('vendor', ['name','email'])
       .then((payment) => {
         if(req.params.id === String(payment[0].customer._id)) return res.json(payment)
+        return res.json({ message: 'This Customer has not made any payment' })
       })
-      .then(() => res.json({ message: 'This Customer has not made any payment' }))
       .catch((error) => console.error(error))
     } catch (error) {
     console.error(error);
@@ -168,7 +168,10 @@ exports.makePayment = async (req, res, next) => {
 
     let newPayment = new Pay(req.body)
     newPayment.save()
-      .then((result) => res.status(201).json(result))
+      .then((result) => res.status(201).json({
+        message: 'Payment has been sent',
+        result
+      }))
       .catch(error => console.error(error));
   } catch (error) {
     console.error(error);
