@@ -1,20 +1,15 @@
-import React, { useState,useEffect } from 'react';
-import { useHistory,useLocation } from 'react-router';
+import React, { useState} from 'react';
+import { useHistory} from 'react-router';
 import "../customer/sign.css"
 const AdminSign = () => {
     const initialState = {email:'',password:''}
     const [formData, setFormData] = useState(initialState)
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const [errors,setErrors] = useState();
     const history = useHistory ();
    
     const handleChange =(e) => {
         setFormData({...formData,[e.target.name]:e.target.value})
     }
-    useEffect (() => {
-        // const token =user?.token;
-        setUser(JSON.parse(localStorage.getItem('profile')))
-    },[])
     const onSubmit = (e) => {
         e.preventDefault()
        
@@ -35,7 +30,7 @@ const AdminSign = () => {
                         
                 
                 } else {
-                    localStorage.setItem("profile",JSON.stringify({json}))
+                    localStorage.setItem("adminprofile",JSON.stringify({json}))
                     history.push("/admin/dashboard")
                 }
             })

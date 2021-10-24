@@ -1,22 +1,31 @@
-import axios from 'axios';
 import React,{useState,useEffect} from 'react';
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
 import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
 import VendorNavbar from '../Navbar/vendorNavbar/Navbar';
 const AcceptedOrders = () => {
     const options = { year: "numeric", month: "long", day: "numeric",hour: '2-digit', minute: '2-digit' }
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('vendorprofile')));
     const location = useLocation ();
     const [data,setData] = useState([]);
-    const [accepted,setAccepted] = useState()
   console.log(user.json._id)
- 
+
+  useEffect (() => {
+    getData ()
+},[])
+const getData = async () => {
+    try {
+        const response = await fetch (`http://localhost:5000/vendor/book/${user.json._id}`)
+        const result2 = await response.json ();
+        setData(result2)
+        console.log(result2)
+        } catch (error) {
+            console.log(error)
+        }
+    
+}
     
     useEffect (() => {
         // const token =user?.token;
-        setUser(JSON.parse(localStorage.getItem('profile')))
+        setUser(JSON.parse(localStorage.getItem('vendorprofile')))
     },[location])
     
     return (
@@ -29,7 +38,7 @@ const AcceptedOrders = () => {
                          
             {data.map(vendor => ( 
                 <>
-                 {vendor.status == "true"?  
+                 {vendor.status === true?  
                     <div className='card text-center row' style={{width:"20rem"}}>
                         <div >
                             <h6 className='mb-2'>customer: </h6><p> {vendor.customer.email}</p>
@@ -44,7 +53,7 @@ const AcceptedOrders = () => {
                             </div>
                         </div>
                     </div>
-                    : <h5>You do not have any accepted orders for now</h5>}
+                    : "You do not have any accepted orders"}
                     </>
     
     ))}

@@ -2,10 +2,9 @@ import React,{useState,useEffect} from 'react';
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
 import "../../customer/sign.css"
 const VendorNavbar = () => {
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('vendorprofile')));
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation ();
@@ -16,7 +15,7 @@ const VendorNavbar = () => {
     }
     useEffect (() => {
         // const token =user?.token;
-        setUser(JSON.parse(localStorage.getItem('profile')))
+        setUser(JSON.parse(localStorage.getItem('vendorprofile')))
     },[location])
     
     return (
@@ -39,9 +38,21 @@ const VendorNavbar = () => {
                             <a class="nav-link active" aria-current="page" href='/vendor/accepted-orders'>Accepted orders</a>
                         </li>
                     </ul>
-                     <div className='mb-3'>
-                    <h7 style={{color:"white"}} >Welcome, {user.json.name}</h7> <br/>
-                    </div>
+                    <ul>
+                    <li className="nav-item dropdown " style={{marginRight:"100px"}}>
+                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i className="fa fa-user" style={{fontSize:"28px"}}></i>
+                        </a>
+                        <div className="dropdown-menu " style={{backgroundColor:"black", padding:"20px"}} aria-labelledby="navbarDropdown">
+                            <div className='mb-3'>
+                                <h7 style={{color:"white"}} > {user.json.name}</h7> <br/>
+                            </div>
+                            <div className='mb-3'>
+                                <h7 style={{color:"white"}} > {user.json.email}</h7> <br/>
+                            </div>
+                        </div>
+                    </li>
+                    </ul>
                    <div>
                    <button className="btn btn-danger btn-md" onClick={logout} >Logout</button>
                    </div>

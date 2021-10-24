@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 import VendorNavbar from '../Navbar/vendorNavbar/Navbar';
 const BookingsMade = () => {
     const options = { year: "numeric", month: "long", day: "numeric",hour: '2-digit', minute: '2-digit' }
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('vendorprofile')));
     const location = useLocation ();
     const [data,setData] = useState([]);
     const history = useHistory()
@@ -27,7 +27,7 @@ const BookingsMade = () => {
     
     useEffect (() => {
         // const token =user?.token;
-        setUser(JSON.parse(localStorage.getItem('profile')))
+        setUser(JSON.parse(localStorage.getItem('vendorprofile')))
     },[location])
     
      useEffect (() => {
@@ -38,6 +38,9 @@ const BookingsMade = () => {
             
                axios.patch(`http://localhost:5000/vendor/book/${customer.vendor}`)
                history.go(0)
+               return (
+                   <p>Order accepted</p>
+               )
            
         })
        
@@ -47,16 +50,16 @@ const BookingsMade = () => {
         <div>
             <VendorNavbar/>
             <div className="container booking mt-5">
-                {data.length < 1?<div>
+                {data.message?<div>
                     <h5>Currently there are no orders</h5>
                 </div>:
-                <>               
+                <> 
                 <h4 className='text-center'>Here are your orders, {user.json.name}</h4>
             <div className='row padding' >
                          
             {data.map(vendor => ( 
                 <>
-                 {vendor.status === 'true'?  
+                 {vendor.status === true?  
                     <div className='card text-center row' style={{width:"21rem"}}>
                         <div >
                             <h6 className='mb-2'>customer: </h6><p> {vendor.customer.email}</p>
@@ -95,7 +98,8 @@ const BookingsMade = () => {
     ))}
     </div>
     </>
-}
+    }
+
 
 
 

@@ -5,3 +5,8 @@
 .graphs .card {
     padding: 50px;
 }
+.update {
+        width: 50% !important;
+        padding: 20px;
+        background-color: aliceblue;
+}

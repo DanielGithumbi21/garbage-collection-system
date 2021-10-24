@@ -1,6 +1,7 @@
 import React, { useEffect,useState } from 'react'
 import AdminNavbar from '../Navbar/adminNavbar/Navbar';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 import axios from "axios"
 import "./Admin.css"
 
@@ -27,8 +28,12 @@ const CustomersData = () => {
     const onDelete = async () => {
         customerData.map ((customer) => {
             axios.delete (`http://localhost:5000/admin/customers/${customer._id}`)
-            history.go(0)
+            
         })
+    }
+    const onUpdate = async (id) => {
+            localStorage.setItem("customerupdateid",JSON.stringify(id))
+            console.log(id)
     }
     return(
         <div>
@@ -54,7 +59,9 @@ const CustomersData = () => {
         <td>{customer.address}</td>
         <td>
             <div className=' m-2 '>
-            <button className='btn btn-sm btn-info m-2'>Update</button>
+            <Link to="/admin/customers/update">
+            <button className='btn btn-sm btn-info m-2' onClick={onUpdate(customer._id)}>Update</button>
+            </Link>
             <button className='btn btn-sm btn-danger m-2' onClick={onDelete}>Delete</button>
             </div>
         </td>

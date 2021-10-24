@@ -14,6 +14,8 @@ import AdminSign from './components/Admin/Admin';
 import CustomersData from './components/Admin/customers';
 import VendorsData from './components/Admin/vendors';
 import BookingsData from './components/Admin/bookings';
+import CustomerUpdate from './components/Admin/customerUpdate';
+import CustomerPayment from './components/customer/Payment';
 
 const App = () => {
   return (
@@ -27,11 +29,13 @@ const App = () => {
         <Route path="/vendor/booking" component={BookingsMade}/>
         <Route path="/vendor/accepted-orders" component={AcceptedOrders}/>
         <Route path="/customer/accepted-orders" component={AcceptedBookings}/>
+        <Route path="/customer/payment" component={CustomerPayment}/>
         <Route path="/admin" exact component={AdminSign}/>
         <Route path="/admin/dashboard" component={Dashboard}/>
-        <Route path="/admin/customers" component={CustomersData}/>
+        <Route path="/admin/customers" exact component={CustomersData}/>
         <Route path="/admin/vendors" component={VendorsData}/>
         <Route path="/admin/bookings" component={BookingsData}/>
+        <Route path="/admin/customers/update" component={CustomerUpdate}/>
       </Router>
     </div>
   )

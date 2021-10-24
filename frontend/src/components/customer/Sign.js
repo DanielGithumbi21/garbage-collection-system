@@ -1,16 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import "../customer/sign.css"
-import { useDispatch } from 'react-redux';
-import { Redirect, useHistory } from 'react-router';
-import {customerSignin,customerSignup} from "../../Actions/Auth"
-import * as api from "../../api/index"
+import {  useHistory } from 'react-router';
 const CustomerSign = () => {
     const initialState = {name:'',email:'',phone_number:'',address:'',password:''}
     const [isSignUp,setIsSignUp] = useState(true);
     const [formData, setFormData] = useState(initialState)
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const [errors,setErrors] = useState();
-    const dispatch = useDispatch ();
     const history = useHistory ();
     const switchmode = () => {
         setIsSignUp((prev) => !prev)
@@ -18,10 +13,7 @@ const CustomerSign = () => {
     const handleChange =(e) => {
         setFormData({...formData,[e.target.name]:e.target.value})
     }
-    useEffect (() => {
-        // const token =user?.token;
-        setUser(JSON.parse(localStorage.getItem('profile')))
-    },[])
+    
     const onSubmit = (e) => {
         e.preventDefault()
         if (isSignUp) {
@@ -38,7 +30,7 @@ const CustomerSign = () => {
                 if (json.message) {
                     setErrors(json.message)
                 } else {
-                    localStorage.setItem("profile",JSON.stringify({json}))
+                    localStorage.setItem("customerprofile",JSON.stringify({json}))
                     history.push("/customer/pickup")
                 }
             })
@@ -60,19 +52,12 @@ const CustomerSign = () => {
                         
                 
                 } else {
-                    localStorage.setItem("profile",JSON.stringify({json}))
+                    localStorage.setItem("customerprofile",JSON.stringify({json}))
                     history.push("/customer/pickup")
                 }
             })
         }
-        // if (isSignUp) {
-        //     dispatch(customerSignup(formData,history))
-        // }else{
-        //     dispatch(customerSignin(formData,history))
-        // }
-        // if (user.message) {
-        //     history.go(0)
-        // }
+       
         
     }
    

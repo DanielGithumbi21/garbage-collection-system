@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import "../customer/sign.css"
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
-import {garbageSignin,garbageSignup} from "../../Actions/Auth"
-import * as api from "../../api/index"
 const GarbageSign = () => {
     const initialState = {name:'',company:'',email:'',phone_number:'',location:'',password:''}
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     const [errors,setErrors] = useState ();
     const [isSignUp,setIsSignUp] = useState(true);
     const [formData, setFormData] = useState(initialState)
-    const dispatch = useDispatch ();
     const history = useHistory ();
     const switchmode = () => {
         setIsSignUp((prev) => !prev)
@@ -34,7 +29,7 @@ const GarbageSign = () => {
             if (json.message) {
                 setErrors(json.message)
             } else {
-                localStorage.setItem("profile",JSON.stringify({json}))
+                localStorage.setItem("vendorprofile",JSON.stringify({json}))
                 history.push("/vendor/booking")
             }
         })
@@ -52,20 +47,12 @@ const GarbageSign = () => {
             if (json.message) {
                 setErrors(json.message)
             } else {
-                localStorage.setItem("profile",JSON.stringify({json}))
+                localStorage.setItem("vendorprofile",JSON.stringify({json}))
                 history.push("/vendor/booking")
             }
         })
     }
-        // localStorage.clear()
-        // if (isSignUp) {
-        //     dispatch(garbageSignup(formData,history))
-        // }else{
-        //     dispatch(garbageSignin(formData,history))
-        // }
-        // if (user.message) {
-        //     history.go(0)
-        // }
+        
     }
    
     

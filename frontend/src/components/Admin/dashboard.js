@@ -1,7 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import AdminNavbar from '../Navbar/adminNavbar/Navbar';
 import {Bar,Pie} from "react-chartjs-2"
-import CountUp from 'react-countup';
 import "./Admin.css"
 
 const Dashboard = () => {
