@@ -2,10 +2,9 @@ import React,{useState,useEffect} from 'react';
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
 import "../../customer/sign.css"
 const AdminNavbar = () => {
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('adminprofile')));
     const dispatch = useDispatch();
     const history = useHistory();
     const location = useLocation ();
@@ -16,7 +15,7 @@ const AdminNavbar = () => {
     }
     useEffect (() => {
         // const token =user?.token;
-        setUser(JSON.parse(localStorage.getItem('profile')))
+        setUser(JSON.parse(localStorage.getItem('adminprofile')))
     },[location])
     
     return (

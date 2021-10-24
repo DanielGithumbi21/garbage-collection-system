@@ -31,6 +31,7 @@ const BookingsData = () => {
             history.go(0)
         })
     }
+    
     return(
         <div>
             <AdminNavbar/>
@@ -50,7 +51,7 @@ const BookingsData = () => {
       <tr>
         <td >{new Date(booking.date).toLocaleDateString(undefined, options)}</td>
         <td>{booking.details}</td>
-        <td>{booking.status}</td>
+        <td>{JSON.stringify(booking.status)}</td>
         <td>
             <div className=' m-2 '>
             <button className='btn btn-sm btn-danger ' onClick={onDelete}>Delete</button>

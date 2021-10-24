@@ -4,7 +4,7 @@ import "./sign.css"
 import CustomerNavbar from '../Navbar/customerNavbar/Navbar';
 
 const AcceptedBookings = () => {
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('customerprofile')));
     const location = useLocation ();
     const [data,setData] = useState([]);
   console.log(user.json._id)
@@ -12,32 +12,19 @@ const AcceptedBookings = () => {
     getData ()
 },[])
 const getData = async () => {
-    try{
-        const response = await fetch ("http://localhost:5000/vendor/register")
-    const result = await response.json();
-    console.log(result)
-    result.map(async (vendor) => {
-        try {
-        const response = await fetch (`http://localhost:5000/vendor/book/${vendor._id}`)
+    try {
+        const response = await fetch (`http://localhost:5000/customer/book/${user.json._id}`)
         const result2 = await response.json ();
         setData(result2)
         console.log(result2)
         } catch (error) {
             console.log(error)
         }
-
-    })
-    
-    } 
-    catch (error) {
-        console.log(error)
-    }
     
 }
-console.log(data)
     useEffect (() => {
         // const token =user?.token;
-        setUser(JSON.parse(localStorage.getItem('profile')))
+        setUser(JSON.parse(localStorage.getItem('customerprofile')))
     },[location])
     
     return (
@@ -49,7 +36,7 @@ console.log(data)
                          
             {data.map(book => ( 
                 <>
-                 {book.customer._id == user.json._id && book.status === 'true'?  
+                 {book.status === true?  
                     <div className='card text-center row' style={{width:"20rem"}}>
                         <div >
                             <p>Your order number {book._id}  was received and accepted by {book.vendor.name}, please click on the payment button to continue to complete the payment</p>
@@ -62,7 +49,7 @@ console.log(data)
                             </div>
                         </div>
                     </div>
-                    : ""}
+                    : "There is no accepted order"}
                     </>
     
     ))}

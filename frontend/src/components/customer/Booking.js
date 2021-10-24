@@ -11,7 +11,7 @@ const CustomerBooking = () => {
     
     const [currentvendorName,setCurrentvendorName] = useState(JSON.parse(localStorage.getItem('currentvendor')));
     const [currentvendorId,setCurrentvendorId] = useState(JSON.parse(localStorage.getItem('currentvendorId')));
-    const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+    const [user,setUser] = useState(JSON.parse(localStorage.getItem('customerprofile')));
     const [startDate, setStartDate] = useState(new Date());
    
     const location = useLocation();
@@ -25,7 +25,7 @@ const CustomerBooking = () => {
     },[location])
     useEffect (() => {
         // const token =user?.token;
-        setUser(JSON.parse(localStorage.getItem('profile')))
+        setUser(JSON.parse(localStorage.getItem('customerprofile')))
     },[location])
     const initialState = {details:""}
     const [formData, setFormData] = useState(initialState)
