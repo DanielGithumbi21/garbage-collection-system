@@ -25,16 +25,15 @@
     padding: 20px;
 }
 .navbar-collapse {
-    margin-left: 30%;
+    margin-left: 20%;
     text-decoration: none !important;
     list-style-type: none !important;
 }
 .nav-item  {
     color: rgb(29, 59, 143);
-    font-size: 17px;
+    font-size: 20px;
     text-decoration: none !important;
     list-style-type: none !important;
-    padding-left: 20px;
 }
 .nav-item{
     

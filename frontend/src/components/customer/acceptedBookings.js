@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { useLocation } from "react-router";
+import { Link } from 'react-router-dom';
 import "./sign.css"
 import CustomerNavbar from '../Navbar/customerNavbar/Navbar';
 
@@ -13,7 +14,7 @@ const AcceptedBookings = () => {
 },[])
 const getData = async () => {
     try {
-        const response = await fetch (`http://localhost:5000/customer/book/${user.json._id}`)
+        const response = await fetch (`http://localhost:5000/customer/book/${user.json.customer._id}`)
         const result2 = await response.json ();
         setData(result2)
         console.log(result2)
@@ -42,9 +43,9 @@ const getData = async () => {
                             <p>Your order number {book._id}  was received and accepted by {book.vendor.name}, please click on the payment button to continue to complete the payment</p>
                             <div className='m-2'>
                             <>
-                           
+                           <Link to ="/customer/payment">
                             <button className='btn btn-md btn-success '  >Payment</button>
-                            
+                            </Link>
                             </>
                             </div>
                         </div>
