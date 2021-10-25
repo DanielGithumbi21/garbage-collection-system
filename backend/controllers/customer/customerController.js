@@ -31,7 +31,6 @@ exports.createNewCustomer= async (req, res, next) => {
     let newCustomer = new Customer(req.body)
     newCustomer.save()
       .then((result) => res.status(201).json({
-        message: 'Customer Created',
         result
       }))
       .catch(err => console.error(err))
