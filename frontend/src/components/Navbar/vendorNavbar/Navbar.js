@@ -80,7 +80,7 @@ const VendorNavbar = () => {
                             </div>
                             <div style={{display:'flex',paddingLeft:"20px"}} className='p-2' >
                                 <div className='card text-center' style={{width:"200px"}}>
-                                    <h5>You have {data.length} Requests</h5>
+                                    <h5>You have {data.length | 0} Requests</h5>
                                 </div>
                             </div>
                             <div >
