@@ -33,12 +33,18 @@ const SchedulePickUp = () => {
                 {data.map(vendor => (
 
                 
-                <div className='card text-center row' style={{width:"15rem"}}>
+                <div className='card row' style={{width:"18rem"}}>
                     <div >
                     <img src="https://i.pinimg.com/736x/cd/cc/b0/cdccb0f1158ad41f0217496ab2757e9a.jpg" class="img-fluid" alt="Responsive"/>
-                        <h5>Name: </h5><p>{vendor.name}</p>
-                        <h5>Company: </h5><p>{vendor.company}</p>
-                        <h5>Location: </h5><p>{vendor.location}</p>
+                    <div style={{display:"flex"}}>
+                        <h5>Name: </h5> <p> {vendor.name}</p>
+                    </div>
+                    <div style={{display:"flex"}}>
+                        <h5>Company:</h5><p>{vendor.company}</p>
+                    </div>
+                    <div style={{display:"flex"}}>
+                        <h5>Location: </h5> <p> {vendor.location}</p>
+                    </div>
                         <Link to ="booking">
                         <button className='btn btn-md btn-info' onClick={() => buttonHandler(vendor._id,vendor.name)}>Make a booking</button>
                         </Link>

@@ -37,7 +37,7 @@ const CustomerBooking = () => {
         e.preventDefault()
         // dispatch(customerBooking(formData,history))
         const vendor = currentvendorId.id;
-        const customer = user.json._id
+        const customer = user.json.customer._id
         const date = startDate
         const details = formData.details
 

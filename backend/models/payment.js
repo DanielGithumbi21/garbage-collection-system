@@ -14,7 +14,6 @@ const paymentSchema = mongoose.Schema({
   },
   details : {
     type: String,
-    required: true
   },
   received : {
       type: Boolean,

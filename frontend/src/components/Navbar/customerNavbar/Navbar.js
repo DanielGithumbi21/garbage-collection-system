@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { useLocation } from "react-router";
+import { Link } from 'react-router-dom';
 import "../../customer/sign.css"
 const CustomerNavbar = () => {
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('customerprofile')));
@@ -17,6 +18,26 @@ const CustomerNavbar = () => {
         // const token =user?.token;
         setUser(JSON.parse(localStorage.getItem('customerprofile')))
     },[location])
+    const name =  user.json.customer.name;
+    const date = new Date ();
+    const [data,setData] = useState([]);
+  
+    useEffect (() => {
+        getData ()
+    },[])
+    const getData = async () => {
+        try{
+            const response = await fetch (`http://localhost:5000/customer/book/${user.json.customer._id}`)
+        const result = await response.json();
+        console.log(result)
+        setData(result)
+        }
+        catch (error) {
+            console.log(error)
+        }
+        
+    }
+   
     
     return (
         <div>
@@ -45,24 +66,58 @@ const CustomerNavbar = () => {
                         
                         
                     </ul>
+                    <div className=''>
+                        <h6 style={{color:"white"}} className='mt-4' > Welcome, { user.json.customer.name}</h6> <br/>
+                    </div>
                     <ul>
-                    <li className="nav-item dropdown " style={{marginRight:"100px"}}>
-                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i className="fa fa-user" style={{fontSize:"28px"}}></i>
+                    <li className="nav-item dropdown mt-3 " style={{marginRight:"180px"}} >
+                        
+                        <a className="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i className="fa fa-user" style={{fontSize:"28px"}}></i>  Profile
                         </a>
-                        <div className="dropdown-menu " style={{backgroundColor:"black", padding:"20px"}} aria-labelledby="navbarDropdown">
-                            <div className='mb-3'>
-                                <h7 style={{color:"white"}} > {user.json.name}</h7> <br/>
+                        <div className='container mt-2 '>
+                        <div className="dropdown-menu " style={{color:"black",}} aria-labelledby="navbarDropdown">
+                            <div className='mb-1 p-1' style={{display:"flex"}}>
+                                <div className='card text-center ' style={{width:"50px",borderRadius:"70px"}}>
+                                    <h4>{name.charAt(0) } </h4>
+                                </div>
+                                <div className='mb-3'>
+                                <h7 style={{marginLeft:"10px"}} className="pt-1" > { user.json.customer.email}</h7>
+                                </div>
+                                
                             </div>
-                            <div className='mb-3'>
-                                <h7 style={{color:"white"}} > {user.json.email}</h7> <br/>
+                            <div style={{display:'flex',paddingLeft:"20px"}} className='p-2' >
+                                <div className='card text-center' style={{width:"200px"}}>
+                                    <h5>You have made {data.length} Bookings</h5>
+                                </div>
                             </div>
+                            <div >
+                                <div className=' p-2'>
+                                    <Link to ="/customer/pickup">
+                                    <button className='btn btn-primary btn-sm'>Schedule booking</button>
+                                    </Link>
+                                    <hr/>
+                                    <div style={{paddingLeft:"20px"}}>
+                                    <h5 className='p-1'>{date.toLocaleDateString("en-US")}</h5>
+                                    </div>
+                                   
+                                </div>
+                                <div className=' p-1'>
+                                    <Link to="/customer/accepted-orders">
+                                    <button className='btn btn-primary btn-sm'>View bookings</button>
+                                    </Link>
+                                    
+                                </div>
+                                <div className=' p-1'>
+                                <button className="btn btn-danger btn-md" onClick={logout} >Logout</button>
+                                    
+                                </div>
+                               
+                            </div>
+                        </div>
                         </div>
                     </li>
                     </ul>
-                   <div>
-                   <button className="btn btn-danger btn-md" onClick={logout} >Logout</button>
-                   </div>
                     </div>
                     
                     
