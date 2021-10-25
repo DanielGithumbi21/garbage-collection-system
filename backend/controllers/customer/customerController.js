@@ -64,7 +64,6 @@ exports.loginCustomer = async (req, res, next) => {
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
     
     res.status(200).json({
-      message: 'Login Succesful',
       customer
     })
   } catch (error) {

@@ -9,12 +9,17 @@ const BookingsMade = () => {
     const location = useLocation ();
     const [data,setData] = useState([]);
     const history = useHistory()
+     
+    useEffect (() => {
+        // const token =user?.token;
+        setUser(JSON.parse(localStorage.getItem('vendorprofile')))
+    },[location])
     useEffect (() => {
         getData ()
     },[])
     const getData = async () => {
         try{
-            const response = await fetch (`http://localhost:5000/vendor/book/${user.json._id}`)
+            const response = await fetch (`http://localhost:5000/vendor/book/${user.json.vendor._id}`)
         const result = await response.json();
         console.log(result)
         setData(result)
@@ -24,11 +29,7 @@ const BookingsMade = () => {
         }
         
     }
-    
-    useEffect (() => {
-        // const token =user?.token;
-        setUser(JSON.parse(localStorage.getItem('vendorprofile')))
-    },[location])
+   
     
      useEffect (() => {
         onClick()
@@ -62,6 +63,7 @@ const BookingsMade = () => {
                  {vendor.status === true?  
                     <div className='card text-center row' style={{width:"21rem"}}>
                         <div >
+                            
                             <h6 className='mb-2'>customer: </h6><p> {vendor.customer.email}</p>
                             <h6 className='mb-2'>Date: </h6><p>{new Date(vendor.date).toLocaleDateString(undefined, options)}</p>
                             <p className='lead'> {vendor.details}</p>
