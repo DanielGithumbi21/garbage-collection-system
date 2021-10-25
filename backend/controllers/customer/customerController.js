@@ -31,7 +31,6 @@ exports.createNewCustomer= async (req, res, next) => {
     let newCustomer = new Customer(req.body)
     newCustomer.save()
       .then((result) => res.status(201).json({
-        message: 'Customer Created',
         result
       }))
       .catch(err => console.error(err))
@@ -167,10 +166,7 @@ exports.makePayment = async (req, res, next) => {
 
     let newPayment = new Pay(req.body)
     newPayment.save()
-      .then((result) => res.status(201).json({
-        message: 'Payment has been sent',
-        result
-      }))
+      .then((result) => res.status(201).json(result))
       .catch(error => console.error(error));
   } catch (error) {
     console.error(error);

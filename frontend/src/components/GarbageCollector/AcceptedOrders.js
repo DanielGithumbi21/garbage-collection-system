@@ -32,7 +32,7 @@ const getData = async () => {
         <div>
             <VendorNavbar/>
             <div className="container booking mt-5">
-                {data.length < 1 ? <div><h5>You do not have any accepted orders for now</h5></div>:<>
+                {data.message ? <div><h5>You do not have any accepted orders for now</h5></div>:<>
                 <h4 className='text-center'>Here are your orders, {user.json.vendor.name}</h4>
             <div className='row padding' >
                          
