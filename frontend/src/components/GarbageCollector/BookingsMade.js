@@ -19,7 +19,7 @@ const BookingsMade = () => {
     },[])
     const getData = async () => {
         try{
-            const response = await fetch (`http://localhost:5000/vendor/book/${user.json.vendor._id}`)
+            const response = await fetch (`http://localhost:5000/vendor/book/${user.json.result._id}`)
         const result = await response.json();
         console.log(result)
         setData(result)
@@ -55,7 +55,7 @@ const BookingsMade = () => {
                     <h5>Currently there are no orders</h5>
                 </div>:
                 <> 
-                <h4 className='text-center'>Here are your orders, {user.json.name}</h4>
+                <h4 className='text-center'>Here are your orders, {user.json.result.name}</h4>
             <div className='row padding' >
                          
             {data.map(vendor => ( 

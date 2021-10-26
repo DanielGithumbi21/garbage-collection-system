@@ -30,7 +30,7 @@ const CustomerPayment = () => {
         amount
         }
         console.log(post)
-        axios.post(`http://localhost:5000/customer/pay/${user.json.customer._id}`,post)
+        axios.post(`http://localhost:5000/customer/pay/${user.json.result._id}`,post)
         .then(() => console.log("successful"))
         alert("Confirm your payment")
         history.push("/customer/pickup")
