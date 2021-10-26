@@ -30,9 +30,9 @@ exports.createNewCustomer= async (req, res, next) => {
 
     let newCustomer = new Customer(req.body)
     newCustomer.save()
-      .then((result) => res.status(201).json({
+      .then((result) => res.status(201).json(
         result
-      }))
+      ))
       .catch(err => console.error(err))
 
   } catch (error) {
@@ -63,7 +63,7 @@ exports.loginCustomer = async (req, res, next) => {
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
     
     res.status(200).json({
-      customer
+      result:customer
     })
   } catch (error) {
     console.error(error);

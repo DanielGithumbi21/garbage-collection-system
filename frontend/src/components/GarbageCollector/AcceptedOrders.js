@@ -13,7 +13,7 @@ const AcceptedOrders = () => {
 },[])
 const getData = async () => {
     try {
-        const response = await fetch (`http://localhost:5000/vendor/book/${user.json.vendor._id}`)
+        const response = await fetch (`http://localhost:5000/vendor/book/${user.json.result._id}`)
         const result2 = await response.json ();
         setData(result2)
         console.log(result2)
@@ -33,7 +33,7 @@ const getData = async () => {
             <VendorNavbar/>
             <div className="container booking mt-5">
                 {data.message ? <div><h5>You do not have any accepted orders for now</h5></div>:<>
-                <h4 className='text-center'>Here are your orders, {user.json.vendor.name}</h4>
+                <h4 className='text-center'>Here are your orders, {user.json.result.name}</h4>
             <div className='row padding' >
                          
             {data.map(vendor => ( 

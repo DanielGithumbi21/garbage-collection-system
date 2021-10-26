@@ -60,7 +60,7 @@ exports.loginVendor = async (req, res, next) => {
     if(!matchPassword) return res.json({ message: 'Wrong Password' })
 
     return res.json({
-      vendor
+      result:vendor
     })
 
   } catch (error) {

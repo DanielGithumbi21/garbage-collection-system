@@ -14,7 +14,7 @@ const AcceptedBookings = () => {
 },[])
 const getData = async () => {
     try {
-        const response = await fetch (`http://localhost:5000/customer/book/${user.json.customer._id}`)
+        const response = await fetch (`http://localhost:5000/customer/book/${user.json.result._id}`)
         const result2 = await response.json ();
         setData(result2)
         console.log(result2)

@@ -18,7 +18,7 @@ const CustomerNavbar = () => {
         // const token =user?.token;
         setUser(JSON.parse(localStorage.getItem('customerprofile')))
     },[location])
-    const name =  user.json.customer.name;
+    const name =  user.json.result.name;
     const date = new Date ();
     const [data,setData] = useState([]);
   
@@ -27,7 +27,7 @@ const CustomerNavbar = () => {
     },[])
     const getData = async () => {
         try{
-            const response = await fetch (`http://localhost:5000/customer/book/${user.json.customer._id}`)
+            const response = await fetch (`http://localhost:5000/customer/book/${user.json.result._id}`)
         const result = await response.json();
         console.log(result)
         setData(result)
@@ -67,7 +67,7 @@ const CustomerNavbar = () => {
                         
                     </ul>
                     <div className=''>
-                        <h6 style={{color:"white"}} className='mt-4' > Welcome, { user.json.customer.name}</h6> <br/>
+                        <h6 style={{color:"white"}} className='mt-4' > Welcome, { user.json.result.name}</h6> <br/>
                     </div>
                     <ul>
                     <li className="nav-item dropdown mt-3 " style={{marginRight:"180px"}} >
@@ -82,7 +82,7 @@ const CustomerNavbar = () => {
                                     <h4>{name.charAt(0) } </h4>
                                 </div>
                                 <div className='mb-3'>
-                                <h7 style={{marginLeft:"10px"}} className="pt-1" > { user.json.customer.email}</h7>
+                                <h7 style={{marginLeft:"10px"}} className="pt-1" > { user.json.result.email}</h7>
                                 </div>
                                 
                             </div>
