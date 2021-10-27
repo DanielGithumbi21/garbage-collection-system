@@ -42,14 +42,6 @@ exports.createNewVendor= async (req, res, next) => {
   LOGIN SETUP
 */
 
-exports.getLogin = async (req, res, next) => {
-  try {
-    return res.json({ message: 'GET LOGIN PAGE' })
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-}
 exports.loginVendor = async (req, res, next) => {
   try {
     let { email, password } = req.body
@@ -63,33 +55,6 @@ exports.loginVendor = async (req, res, next) => {
       result:vendor
     })
 
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-}
-
-/*
-  DASHBOARD SETUP
-*/
-
-exports.getDashboard = async (req, res, next) => {
-  try {
-    return res.json({ message: 'GET DASHBOARD PAGE' })
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-}
-
-/*
-  LOGOUT SETUP
-*/
-
-exports.logout = async (req, res, next) => {
-  try {
-    req.session.destroy()
-    return res.json({ message: 'COOKIE DESTROYED REDIRECTING TO LOGIN PAGE OR REGISTER PAGE OR LANDING PAGE' })
   } catch (error) {
     console.error(error);
     next(error);
@@ -114,7 +79,6 @@ exports.getBooking = async (req, res, next) => {
     next(error);
   }
 }
-
 
 exports.confirmBooking = async (req, res, next) => {
   try {
@@ -155,24 +119,9 @@ exports.getPayment = async (req, res, next) => {
   }
 }
 
-
 exports.confirmPayment = async (req, res, next) => {
   try {
     await Pay.updateOne({ vendor: req.params.id , received: false},{ $set: { received: true } }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-}
-
-/*
-  GET ONE VENDOR SETUP
-*/
-
-exports.getOneVendor = async (req, res, next) => {
-  try {
-    let vendor = await Vendor.findById({ _id: req.params.id})
-    return res.json(vendor)
   } catch (error) {
     console.error(error);
     next(error);
