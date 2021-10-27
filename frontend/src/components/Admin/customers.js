@@ -25,11 +25,8 @@ const CustomersData = () => {
         
         
     }
-    const onDelete = async () => {
-        customerData.map ((customer) => {
-            axios.delete (`http://localhost:5000/admin/customers/${customer._id}`)
-            
-        })
+    const onDelete = async (id) => {
+            axios.delete (`http://localhost:5000/admin/customers/${id}`)
     }
     const onUpdate = async (id) => {
             localStorage.setItem("customerupdateid",JSON.stringify(id))
@@ -62,7 +59,7 @@ const CustomersData = () => {
             <Link to="/admin/customers/update">
             <button className='btn btn-sm btn-info m-2' onClick={onUpdate(customer._id)}>Update</button>
             </Link>
-            <button className='btn btn-sm btn-danger m-2' onClick={onDelete}>Delete</button>
+            <button className='btn btn-sm btn-danger m-2' onClick={() => onDelete(customer._id)}>Delete</button>
             </div>
         </td>
       </tr>

@@ -25,11 +25,9 @@ const BookingsData = () => {
         
         
     }
-    const onDelete = async () => {
-        bookingsData.map ((booking) => {
-            axios.delete (`http://localhost:5000/admin/bookings/${booking._id}`)
+    const onDelete = async (id) => {
+            axios.delete (`http://localhost:5000/admin/bookings/${id}`)
             history.go(0)
-        })
     }
     
     return(
@@ -54,7 +52,7 @@ const BookingsData = () => {
         <td>{JSON.stringify(booking.status)}</td>
         <td>
             <div className=' m-2 '>
-            <button className='btn btn-sm btn-danger ' onClick={onDelete}>Delete</button>
+            <button className='btn btn-sm btn-danger' onClick={() => onDelete(booking._id)}>Delete</button>
             </div>
         </td>
       </tr>

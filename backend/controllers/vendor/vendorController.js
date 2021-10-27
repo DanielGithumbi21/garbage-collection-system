@@ -29,7 +29,7 @@ exports.createNewVendor= async (req, res, next) => {
 
     let newVendor = new Vendor(req.body)
     newVendor.save()
-      .then((result) => res.status(201).json(result))
+      .then((result) => res.status(201).json({result}))
       .catch(err => console.error(err))
 
   } catch (error) {
