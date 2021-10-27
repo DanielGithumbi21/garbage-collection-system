@@ -118,7 +118,7 @@ exports.getBooking = async (req, res, next) => {
 
 exports.confirmBooking = async (req, res, next) => {
   try {
-    await Book.updateOne({ vendor: req.params.id , status: false},{ $set: { status: true } }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
+    await Book.updateOne({ _id: req.params.id , status: false},{ $set: { status: true } }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
   } catch (error) {
     console.error(error);
     next(error);
@@ -127,7 +127,7 @@ exports.confirmBooking = async (req, res, next) => {
 
 exports.deleteBooking = async (req, res, next) => {
   try {
-    await Book.deleteOne({ vendor: req.params.id }, { new: true })
+    await Book.deleteOne({ _id: req.params.id }, { new: true })
       .then(result => res.json({ message: 'Booking deleted',result
       }))
       .catch(err => res.json(err))
