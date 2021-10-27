@@ -30,14 +30,12 @@ const BookingsMade = () => {
         
     }
    
-     const onClick =  () => {
-         data.map ((vendor) => {
-            axios.patch(`http://localhost:5000/vendor/book/${vendor.vendor}`)
+     const onClick =  (id) => {
+            axios.patch(`http://localhost:5000/vendor/book/${id}`)
             history.go(0)
-         })
        
     }
-    const onDelete = async (id,bookingid) => {
+    const onDelete = async (id) => {
         axios.delete (`http://localhost:5000/vendor/book/${id}`)
         history.go(0)
     }
@@ -77,10 +75,10 @@ const BookingsMade = () => {
                             <div className='m-2'>
                         <>
                         
-                        <button className='btn btn-md btn-info m-2' onClick={onClick}  >Accept</button>
+                        <button className='btn btn-md btn-info m-2' onClick={() => onClick (vendor._id)}  >Accept</button>
                        
                         
-                        <button className='btn btn-md btn-danger' onClick={() => onDelete (vendor.vendor)} >Decline</button>
+                        <button className='btn btn-md btn-danger' oonClick={() => onDelete (vendor._id)}  >Decline</button>
                         
                         </>
                         </div>
