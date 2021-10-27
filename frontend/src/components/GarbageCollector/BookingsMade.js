@@ -30,22 +30,16 @@ const BookingsMade = () => {
         
     }
    
-    
-     useEffect (() => {
-        onClick()
-     },[])
      const onClick =  () => {
-        data.map ((customer ) => {
-            
-               axios.patch(`http://localhost:5000/vendor/book/${customer.vendor}`)
-               history.go(0)
-               return (
-                   <p>Order accepted</p>
-               )
-           
-        })
+         data.map ((vendor) => {
+            axios.patch(`http://localhost:5000/vendor/book/${vendor.vendor}`)
+            history.go(0)
+         })
        
-      
+    }
+    const onDelete = async (id,bookingid) => {
+        axios.delete (`http://localhost:5000/vendor/book/${id}`)
+        history.go(0)
     }
     return (
         <div>
@@ -83,10 +77,10 @@ const BookingsMade = () => {
                             <div className='m-2'>
                         <>
                         
-                        <button className='btn btn-md btn-info m-2' onClick={onClick }  >Accept</button>
+                        <button className='btn btn-md btn-info m-2' onClick={onClick}  >Accept</button>
                        
                         
-                        <button className='btn btn-md btn-danger' >Decline</button>
+                        <button className='btn btn-md btn-danger' onClick={() => onDelete (vendor.vendor)} >Decline</button>
                         
                         </>
                         </div>

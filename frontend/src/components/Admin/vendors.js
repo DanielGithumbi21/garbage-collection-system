@@ -24,11 +24,9 @@ const VendorsData = () => {
         
         
     }
-    const onDelete = async () => {
-        vendorData.map ((vendor) => {
-            axios.delete (`http://localhost:5000/admin/vendors/${vendor._id}`)
+    const onDelete = async (id) => {
+            axios.delete (`http://localhost:5000/admin/vendors/${id}`)
             history.go(0)
-        })
     }
     return(
         <div>
@@ -55,7 +53,7 @@ const VendorsData = () => {
         <td>
             <div className=' m-2 '>
             <button className='btn btn-sm btn-info m-2'>Update</button>
-            <button className='btn btn-sm btn-danger m-2' onClick={onDelete}>Delete</button>
+            <button className='btn btn-sm btn-danger m-2' onClick={() => onDelete(vendor._id)}>Delete</button>
             </div>
         </td>
       </tr>
