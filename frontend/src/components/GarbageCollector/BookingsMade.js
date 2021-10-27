@@ -78,7 +78,7 @@ const BookingsMade = () => {
                         <button className='btn btn-md btn-info m-2' onClick={() => onClick (vendor._id)}  >Accept</button>
                        
                         
-                        <button className='btn btn-md btn-danger' oonClick={() => onDelete (vendor._id)}  >Decline</button>
+                        <button className='btn btn-md btn-danger' onClick={() => onDelete (vendor._id)}  >Decline</button>
                         
                         </>
                         </div>
