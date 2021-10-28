@@ -55,7 +55,10 @@ const VendorNavbar = () => {
                             <a class="nav-link active" aria-current="page" href='/vendor/booking'>Orders</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href='/vendor/accepted-orders'>Accepted orders</a>
+                            <a class="nav-link " aria-current="page" href='/vendor/accepted-orders'>Accepted orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " aria-current="page" href='/vendor/payments'>Payments</a>
                         </li>
                     </ul>
                     <div className=''>

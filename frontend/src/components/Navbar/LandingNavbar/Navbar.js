@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import "../../customer/sign.css"
+import { Button } from '../../Home/Button';
 const Navbar = () => {
    
    
@@ -24,49 +25,23 @@ const Navbar = () => {
                         <li className="nav-item">
                         <a className="nav-link" href='/'>Home</a>
                         </li>
-                        
-                        
+                        <li className="nav-item">
+                        <a className="nav-link" href='/banner'>Products</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link" href='/banner'>Services</a>
+                        </li>
                     </ul>
-                    <ul>
-                    <li className="nav-item dropdown " >
-                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <button className="btn btn-primary btn-md">Sign In</button>
-                        </a>
-                        <div className="dropdown-menu " style={{backgroundColor:"black",width:"100"}} aria-labelledby="navbarDropdown">
-                            <div className='mb-3'>
-                                <Link to="/garbage/sign">
-                                <button className='btn btn-md btn-primary'>Vendor</button>
-                                </Link>
-                            </div>
-                            <div className='mb-3'>
-                              <Link to = "/customer/sign">
-                              <button className='btn btn-md btn-primary'>Customer</button>
-                              </Link>
-                            </div>
-                            
-                        </div>
-                    </li>
-                    </ul>
-                    <ul>
-                    <li className="nav-item dropdown ">
-                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <button className="btn btn-primary btn-md">Sign Up</button>
-                        </a>
-                        <div className="dropdown-menu " style={{backgroundColor:"black"}} aria-labelledby="navbarDropdown">
-                            <div className='mb-3'>
-                                <Link to="/garbage/sign">
-                                <button className='btn btn-md btn-primary'>Vendor</button>
-                                </Link>
-                            </div>
-                            <div className='mb-3'>
-                              <Link to = "/customer/sign">
-                              <button className='btn btn-md btn-primary'>Customer</button>
-                              </Link>
-                            </div>
-                            
-                        </div>
-                    </li>
-                    </ul>
+                    
+                    <Link to="/banner">
+                            <Button
+                            className='btns'
+                            buttonStyle='btn--outline'
+                            buttonSize='btn--large'
+                            >
+                            Sign Up
+                            </Button>
+                    </Link>
                     </div>
                     
                     

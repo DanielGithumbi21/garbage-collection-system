@@ -121,9 +121,10 @@ exports.getPayment = async (req, res, next) => {
 
 exports.confirmPayment = async (req, res, next) => {
   try {
-    await Pay.updateOne({ vendor: req.params.id , received: false},{ $set: { received: true } }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
+    await Pay.updateOne({ _id: req.params.id , received: false},{ $set: { received: true } }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
   } catch (error) {
     console.error(error);
     next(error);
   }
 }
+

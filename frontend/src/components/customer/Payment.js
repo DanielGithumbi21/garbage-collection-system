@@ -8,11 +8,16 @@ import CustomerNavbar from '../Navbar/customerNavbar/Navbar';
 const CustomerPayment = () => {
     const history = useHistory()
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('customerprofile')));
+    const [vendor,setVendor] = useState(JSON.parse(localStorage.getItem('VendorID')));
    
     const location = useLocation();
     useEffect (() => {
         // const token =user?.token;
         setUser(JSON.parse(localStorage.getItem('customerprofile')))
+    },[location])
+    useEffect (() => {
+        // const token =user?.token;
+        setVendor(JSON.parse(localStorage.getItem('VendorID')))
     },[location])
     
     function getRandomNumberBetween(min,max){
@@ -27,7 +32,10 @@ const CustomerPayment = () => {
         const type = "paypal"
         const post = {
         type,
-        amount
+        amount,
+        customer:user.json.result._id,
+        vendor:vendor.id
+
         }
         console.log(post)
         axios.post(`http://localhost:5000/customer/pay/${user.json.result._id}`,post)

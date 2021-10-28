@@ -25,13 +25,13 @@
     padding: 20px;
 }
 .navbar-collapse {
-    margin-left: 20%;
+    margin-left: 15%;
     text-decoration: none !important;
     list-style-type: none !important;
 }
 .nav-item  {
     color: rgb(29, 59, 143);
-    font-size: 20px;
+    font-size: 17px;
     text-decoration: none !important;
     list-style-type: none !important;
 }
@@ -80,16 +80,39 @@ Link li{
 .vendor-booking textarea {
     height: 120px !important;
 }
+.banner .buttons {
+    margin-top: 15%;
+    padding: 20px;
+}
+.banner .buttons .btn {
+    margin: 10px;
+    width: 50%;
+}
+.banner {
+    margin-top: 5% !important;
+    width: 75%;
+    background-color: aliceblue;
+    padding: 20px;
+}
 @media screen and (max-width:920px) {
-    .sign img {
+    .banner img {
        display: none;
     
+    }
+    .banner {
+        margin-top: 30% !important;
+        width: 90%;
+    }
+    .banner .buttons {
+        margin-top: 0%;
+        padding: 20px;
     }
     .vendor-booking {
         width: 100%;
         margin-top: 10% !important;
     }
-    /* .booking .card {
-        margin-left: 18% !important;
-    } */
+    .banner .buttons .btn {
+        margin: 10px;
+        width: 100% !important;
+    }
 }

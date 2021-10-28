@@ -10,23 +10,22 @@ function HeroSection() {
       <h1>YOUR WASTE,OUR WORRY</h1>
       <p>What are you waiting for?</p>
       <div className='hero-btns'>
-        <Link to="/garbage/sign">
+        <Link to="/banner">
         <Button
           className='btns'
           buttonStyle='btn--outline'
           buttonSize='btn--large'
         >
-          Vendor Registration
+          Get Started
         </Button>
         </Link>
-        <Link to ="/customer/sign">
+        <Link to ="/banner">
         <Button
           className='btns'
           buttonStyle='btn--primary'
           buttonSize='btn--large'
-          onClick={console.log('hey')}
         >
-          Customer Registration
+          View Trailer
         </Button>
         </Link>
       </div>
