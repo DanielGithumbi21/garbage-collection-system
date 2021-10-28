@@ -32,6 +32,10 @@ const CustomerBooking = () => {
     const handleChange =(e) => {
         setFormData({...formData,[e.target.name]:e.target.value})
     }
+    const phoneNumber = user.json.result.phone_number;
+    const email = user.json.result.email;
+    const name = user.json.result.name;
+    const address = user.json.result.address;
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -63,6 +67,18 @@ const CustomerBooking = () => {
                 <h5 className='text-center'>Make a booking from, {currentvendorName.name}</h5>
                 <div className='card'>
             <form onSubmit={onSubmit} >
+            <div class="form-floating mb-3">
+                <input type="text" disabled={true} value={name} class="form-control" id="floatingInput" placeholder="name@example.com" name='type' required/>
+                <label for="floatingInput">Name</label>
+            </div> 
+            <div class="form-floating mb-3">
+                <input type="text" disabled={true} value={email} class="form-control" id="floatingInput" placeholder="name@example.com" name='type' required/>
+                <label for="floatingInput">Email</label>
+            </div> 
+            <div class="form-floating mb-3">
+                <input type="text" disabled={true} value={phoneNumber} class="form-control" id="floatingInput" placeholder="name@example.com" name='type' required/>
+                <label for="floatingInput">Phone Number</label>
+            </div> 
             <div class="form-floating mb-3">
             <DatePicker
               selected={startDate}

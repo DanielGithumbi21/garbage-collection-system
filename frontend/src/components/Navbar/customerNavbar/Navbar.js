@@ -58,9 +58,11 @@ const CustomerNavbar = () => {
                         <li className="nav-item">
                         <a className="nav-link" href='/customer/pickup'>Book</a>
                         </li>
-                        
                         <li className="nav-item">
                         <a className="nav-link" href='/customer/accepted-orders'>Accepted orders</a>
+                        </li>
+                        <li className="nav-item">
+                        <a className="nav-link" href=' /customer/accepted-payment'>Payment receipts</a>
                         </li>
                         
                         
