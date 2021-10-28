@@ -12,7 +12,9 @@ const Pay = require('../../models/payment')
 exports.getAllCustomers = async (req, res, next) => {
   try {
     let customers = await Customer.find()
+
     return res.json(customers)
+
   } catch (error) {
     console.error(error);
     next(error);
@@ -45,17 +47,10 @@ exports.createNewCustomer= async (req, res, next) => {
   LOGIN SETUP
 */
 
-exports.getLogin = async (req, res, next) => {
-  try {
-    return res.json({ message: 'GET LOGIN PAGE' })
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-}
 exports.loginCustomer = async (req, res, next) => {
   try {
     let { email, password } = req.body
+    
     let customer = await Customer.findOne({ email })
     if(!customer) return res.json({ message: 'Kindly register first' })
 
@@ -65,33 +60,6 @@ exports.loginCustomer = async (req, res, next) => {
     res.status(200).json({
       result:customer
     })
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-}
-
-/*
-  DASHBOARD SETUP
-*/
-
-exports.getDashboard = async (req, res, next) => {
-  try {
-    return res.json({ message: 'GET DASHBOARD PAGE' })
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-}
-
-/*
-  LOGOUT SETUP
-*/
-
-exports.logout = async (req, res, next) => {
-  try {
-    req.session.destroy()
-    return res.json({ message: 'COOKIE DESTROYED REDIRECTING TO LOGIN PAGE OR REGISTER PAGE OR LANDING PAGE' })
   } catch (error) {
     console.error(error);
     next(error);
@@ -122,9 +90,6 @@ exports.makeBooking = async (req, res, next) => {
     let { date, status, details, customer, vendor } = req.body;
 
     if(req.params.id != String(req.body.customer)) return res.json({ message: 'This Customer is not related to the booking being made' })
-
-    // let booking = await Book.findOne({ 'details': req.body.details })
-    // if(booking) return res.json({ message: 'This booking already exists' })
 
     let newBooking = new Book(req.body)
     newBooking.save()
@@ -161,27 +126,10 @@ exports.makePayment = async (req, res, next) => {
 
     if(req.params.id != String(req.body.customer)) return res.json({ message: 'This Customer is not related to the payment being made' })
 
-    // let payment = await Book.findOne({ 'details': req.body.details })
-    // if(booking) return res.json({ message: 'This booking already exists' })
-
     let newPayment = new Pay(req.body)
     newPayment.save()
       .then((result) => res.status(201).json(result))
       .catch(error => console.error(error));
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-}
-
-/*
-  GET ONE CUSTOMER SETUP
-*/
-
-exports.getOneCustomer = async (req, res, next) => {
-  try {
-    let customer = await Customer.findById({ _id: req.params.id})
-    return res.json(customer)
   } catch (error) {
     console.error(error);
     next(error);
