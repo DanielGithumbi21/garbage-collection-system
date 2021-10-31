@@ -52,7 +52,6 @@ const VendorsData = () => {
         <td>{vendor.location}</td>
         <td>
             <div className=' m-2 '>
-            <button className='btn btn-sm btn-info m-2'>Update</button>
             <button className='btn btn-sm btn-danger m-2' onClick={() => onDelete(vendor._id)}>Delete</button>
             </div>
         </td>

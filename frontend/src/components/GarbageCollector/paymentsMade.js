@@ -41,7 +41,7 @@ const PaymentsMade = () => {
             <VendorNavbar/>
             <div className="container booking mt-5">
                 {data.message?<div>
-                    <h5>Currently there are no orders</h5>
+                    <h5>Currently there are no Payments</h5>
                 </div>:
                 <> 
                 <h4 className='text-center'>Here are your Payments, {user.json.result.name}</h4>

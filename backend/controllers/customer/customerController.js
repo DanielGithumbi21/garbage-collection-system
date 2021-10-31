@@ -131,8 +131,15 @@ exports.makePayment = async (req, res, next) => {
       .then((result) => res.status(201).json(result))
       .catch(error => console.error(error));
 
-    await Book.updateOne({ _id: req.params.id , payed: false},{ $set: { payed: true } }, { new: true })
     
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+exports.confirmPayment = async (req, res, next) => {
+  try {
+    await Book.updateOne({ _id: req.params.id , payed: false},{ $set: { payed: true } }, { new: true }).then(result => res.json(result)).catch(err => res.json(err))
   } catch (error) {
     console.error(error);
     next(error);
