@@ -16,6 +16,10 @@ const bookingSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  payed: {
+    type: Boolean,
+    default: false
+  },
   customer: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'customer'

@@ -130,6 +130,9 @@ exports.makePayment = async (req, res, next) => {
     newPayment.save()
       .then((result) => res.status(201).json(result))
       .catch(error => console.error(error));
+
+    await Book.updateOne({ _id: req.params.id , payed: false},{ $set: { payed: true } }, { new: true })
+    
   } catch (error) {
     console.error(error);
     next(error);
