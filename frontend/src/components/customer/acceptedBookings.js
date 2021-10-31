@@ -30,8 +30,9 @@ const getData = async () => {
         setUser(JSON.parse(localStorage.getItem('customerprofile')))
     },[location])
     
-    const onClick = (id) => {
+    const onClick = (id,bookingId) => {
         localStorage.setItem("VendorID",JSON.stringify({id}))
+        localStorage.setItem("BookID",JSON.stringify({bookingId}))
         history.push("/customer/payment")
     }
     
@@ -45,19 +46,37 @@ const getData = async () => {
                     <>
                       {data.map(book => ( 
                        <>
-                         {book.status === true  ?  
+                       {
+                           book.payed === true?
+                           <>
+                             <div className='card text-center row' style={{width:"20rem"}}>
+                                <div >
+                                    <p>Your order number {book._id}  was received and accepted by {book.vendor.name}, please click on the payment button to continue to complete the payment</p>
+                                    <div className='m-2'>
+                                    <>
+                                    <button className='btn btn-md btn-danger' disabled={true} >Paid</button>
+                                    </>
+                                    </div>
+                                </div>
+                            </div>
+                           </>:
+                           <>
+                            {book.status === true  ?  
                             <div className='card text-center row' style={{width:"20rem"}}>
                                 <div >
                                     <p>Your order number {book._id}  was received and accepted by {book.vendor.name}, please click on the payment button to continue to complete the payment</p>
                                     <div className='m-2'>
                                     <>
-                                    <button className='btn btn-md btn-success ' onClick={ () => onClick(book.vendor._id)}  >Payment</button>
+                                    <button className='btn btn-md btn-success ' onClick={ () => onClick(book.vendor._id,book._id)}  >Payment</button>
                                     </>
                                     </div>
                                 </div>
                             </div>
                             : ""
                             }
+                           </>
+                       }
+                         
                             </>
             
             ))}

@@ -33,5 +33,6 @@ router.route('/book/:id')
 router.route('/pay/:id')
   .get(customerController.getPayment)
   .post(customerController.makePayment)
+  .patch(customerController.confirmPayment)
 
 module.exports = router;

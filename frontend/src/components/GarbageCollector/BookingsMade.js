@@ -52,7 +52,27 @@ const BookingsMade = () => {
                          
             {data.map(vendor => ( 
                 <>
-                 {vendor.status === true?  
+                {
+                    vendor.payed === true?
+                    <>
+                         <div className='card text-center row' style={{width:"21rem"}}>
+                        <div >
+                            
+                            <h6 className='mb-2'>customer: </h6><p> {vendor.customer.email}</p>
+                            <h6 className='mb-2'>Date: </h6><p>{new Date(vendor.date).toLocaleDateString(undefined, options)}</p>
+                            <p className='lead'> {vendor.details}</p>
+                            <div className='m-2'>
+                            <>
+                           
+                            <button className='btn btn-md btn-danger ' disabled={true} >Accepted and paid</button>
+                            
+                            </>
+                            </div>
+                        </div>
+                    </div>
+                    </>:
+                    <>
+                         {vendor.status === true?  
                     <div className='card text-center row' style={{width:"21rem"}}>
                         <div >
                             
@@ -87,6 +107,9 @@ const BookingsMade = () => {
                     
                 </div>
                 }
+                    </>
+                }
+                
                     </>
     
     ))}

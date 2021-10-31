@@ -9,6 +9,8 @@ const CustomerPayment = () => {
     const history = useHistory()
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('customerprofile')));
     const [vendor,setVendor] = useState(JSON.parse(localStorage.getItem('VendorID')));
+    const [booking,setBooking] = useState(JSON.parse(localStorage.getItem('BookID')));
+
    
     const location = useLocation();
     useEffect (() => {
@@ -17,7 +19,7 @@ const CustomerPayment = () => {
     },[location])
     useEffect (() => {
         // const token =user?.token;
-        setVendor(JSON.parse(localStorage.getItem('VendorID')))
+        setBooking(JSON.parse(localStorage.getItem('BookID')))
     },[location])
     
     function getRandomNumberBetween(min,max){
@@ -41,9 +43,12 @@ const CustomerPayment = () => {
         axios.post(`http://localhost:5000/customer/pay/${user.json.result._id}`,post)
         .then(() => console.log("successful"))
         alert("Confirm your payment")
+        axios.patch (`http://localhost:5000/customer/pay/${booking.bookingId}`)
         history.push("/customer/pickup")
         
     }
+    
+    
     
     return (
         <div>
