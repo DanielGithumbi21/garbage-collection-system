@@ -28,6 +28,11 @@ app.use(cookieParser());
 app.use('/customer', indexRouter);
 app.use('/vendor', usersRouter);
 app.use('/admin', adminRouter);
+app.use(express.static(path.join(__dirname, 'build')));
 
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 module.exports = app;
