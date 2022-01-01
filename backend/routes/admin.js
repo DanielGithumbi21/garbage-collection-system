@@ -68,4 +68,18 @@ router.route('/bookings/:id')
   .patch(adminController.patchBooking)
   .delete(adminController.deleteBooking)
 
+/*
+  HANDLE SENT PAYMENT SETUP
+*/
+
+router.route('/sent')
+  .get(adminController.madePayment)
+
+/*
+  HANDLE RECIEVED PAYMENT SETUP
+*/
+
+router.route('/recieved')
+  .get(adminController.recievedPayment)
+
 module.exports = router;

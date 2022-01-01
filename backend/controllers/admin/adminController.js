@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const Customer = require('../../models/customer');
 const Vendor = require('../../models/vendor');
 const Book = require('../../models/booking');
+const Pay = require('../../models/payment');
 const Admin = require('../../models/admin');
 
 /*
@@ -232,6 +233,42 @@ exports.getAllBooked = async (req, res, next) => {
   try {
     await Book.find({ status: true })
       .then((result) => res.status(200).json(result))
+      .catch(err => console.error(err))
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+/*
+  HANDLE SENT PAYMENT SETUP
+*/
+
+exports.madePayment = async (req, res, next) => {
+  try {
+    await Pay.find({ received: false })
+      .then((result) => res.status(200).json({
+        count: result.length,
+        body: result
+      }))
+      .catch(err => console.error(err))
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+}
+
+/*
+  HANDLE RECIEVED PAYMENT SETUP
+*/
+
+exports.recievedPayment = async (req, res, next) => {
+  try {
+    await Pay.find({ received: true })
+      .then((result) => res.status(200).json({
+        count: result.length,
+        body: result
+      }))
       .catch(err => console.error(err))
   } catch (error) {
     console.error(error);
