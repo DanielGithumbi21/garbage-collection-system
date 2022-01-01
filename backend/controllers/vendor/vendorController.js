@@ -68,7 +68,7 @@ exports.loginVendor = async (req, res, next) => {
 exports.getBooking = async (req, res, next) => {
   try {
     await Book.find({ 'vendor': req.params.id })
-      .populate('customer', ['name','email'])
+      .populate('customer', ['name','email', 'address'])
       .then((booked) => {
         if(req.params.id === String(booked[0].vendor._id)) return res.status(200).json(booked)
         return res.json({ message: 'This Vendor has not been booked' })
