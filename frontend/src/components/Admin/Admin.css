@@ -10,3 +10,11 @@
         padding: 20px;
         background-color: aliceblue;
 }
+.graph-card {
+    height: 400px;
+    background-color: azure;
+}
+.card-data {
+    background-color: azure;
+    margin-bottom: 20px;
+}

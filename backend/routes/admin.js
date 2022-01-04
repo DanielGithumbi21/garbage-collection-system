@@ -79,7 +79,7 @@ router.route('/sent')
   HANDLE RECIEVED PAYMENT SETUP
 */
 
-router.route('/recieved')
+router.route('/received')
   .get(adminController.recievedPayment)
 
 module.exports = router;

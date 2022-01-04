@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from 'react';
 import AdminNavbar from '../Navbar/adminNavbar/Navbar';
-import {Bar,Pie} from "react-chartjs-2"
+import {Bar,Pie,Line} from "react-chartjs-2"
+import CountUp from 'react-countup';
 import "./Admin.css"
 
 const Dashboard = () => {
@@ -8,6 +9,9 @@ const Dashboard = () => {
   const [vendorData,setVendorData] = useState([]);
   const [bookingData,setBookingData] = useState([]);
   const [bookedData,setBookedData] = useState([]);
+  const [paymentsMade,setPaymentsMade] = useState([]);
+  const [paymentsReceived,setPaymentsReceived] = useState([]);
+
 
   
     useEffect (() => {
@@ -49,16 +53,87 @@ const Dashboard = () => {
   catch (error) {
       console.log(error)
   }
+  try{
+    const response = await fetch ("http://localhost:5000/admin/sent")
+const result5 = await response.json();
+setPaymentsMade(result5.count)
+}
+catch (error) {
+    console.log(error)
+}
+try{
+    const response = await fetch ("http://localhost:5000/admin/received")
+const result6 = await response.json();
+setPaymentsReceived(result6.count)
+}
+catch (error) {
+    console.log(error)
+}
         
     }
     return (
         <div >
           <AdminNavbar/>
           <div className="container graphs mt-5">
+              <div className='row padding'>
+                  <div className='col-lg-3 col-sm-12 col-md-6'>
+                      <div className='card card-data text-center'>
+                          <h7>Registered Vendors</h7>
+                      <CountUp
+                        start={0}
+                        end={vendorData.count}
+                        duration={2.75}
+                        separator=" "
+                        decimals={0}
+                        decimal=","
+                        />
+                      </div>
+                  </div>
+                  <div className='col-lg-3'>
+                  <div className='card card-data text-center'>
+                      <h7>Registered Customers</h7>
+                  <CountUp
+                        start={0}
+                        end={customerData.count}
+                        duration={2.75}
+                        separator=" "
+                        decimals={0}
+                        decimal=","
+                    />
+                      </div>
+                      </div>
+                <div className='col-lg-3'>
+                  <div className='card card-data text-center'>
+                      <h7>Bookings Made</h7>
+                  <CountUp
+                        start={0}
+                        end={bookingData.count}
+                        duration={2.75}
+                        separator=" "
+                        decimals={0}
+                        decimal=","
+                    />
+                      </div>
+                      </div>
+                      <div className='col-lg-3'>
+                  <div className='card card-data text-center'>
+                      <h7>Accepted Bookings</h7>
+                  <CountUp
+                        start={0}
+                        end={bookedData.length}
+                        duration={2.75}
+                        separator=" "
+                        decimals={0}
+                        decimal=","
+                    />
+                      </div>
+                      </div>
+              </div>
             <div className='row padding'>
               {customerData.count === 0 && vendorData.count === 0  ?<h6 className='text-center mb-4'>There are no registered customers and vendors</h6>:
               <>
               <div className='col-lg-4 col-md-6 col-sm-12 mb-3'>
+              <div className='card graph-card'>
               <Bar
             height={400}
             width={500}
@@ -96,8 +171,10 @@ const Dashboard = () => {
             }}
 
         />
+        </div>
               </div>
               <div className='col-lg-4 mb-3'>
+              <div className='card graph-card'>
               <Pie
             height={400}
             width={500}
@@ -130,11 +207,13 @@ const Dashboard = () => {
                 maintainAspectRatio:false
             }}
         />
+        </div>
               </div>
               </>
 }
               
               <div className='col-lg-4'>
+              <div className='card graph-card'>
               <Bar
             height={400}
             width={500}
@@ -169,6 +248,38 @@ const Dashboard = () => {
             }}
 
         />
+        </div>
+              </div>
+              <div className='col-lg-4'>
+            <div className='card graph-card'>
+              <Line
+                height={400}
+                width={500} 
+                    data = {
+                        {
+                            labels: ['Bookings made', 'Bookings accepted','customers','vendors'],
+                            datasets: [
+                              {
+                                label: 'Bookings, vendors and customers',
+                                data: [bookingData.count,bookedData.length,customerData.count,vendorData.count],
+                                fill: false,
+                                backgroundColor: 'rgb(255, 99, 132)',
+                                borderColor: 'rgba(255, 99, 132, 0.2)',
+                              },
+                            ],
+                          }
+                    }
+                    options= {{
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        maintainAspectRatio:false
+                    }}
+
+                />
+                </div>
               </div>
             </div>
           

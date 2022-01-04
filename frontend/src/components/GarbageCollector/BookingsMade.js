@@ -77,6 +77,7 @@ const BookingsMade = () => {
                         <div >
                             
                             <h6 className='mb-2'>customer: </h6><p> {vendor.customer.email}</p>
+                            <h6 className='mb-2'>Address: </h6><p> {vendor.customer.address}</p>
                             <h6 className='mb-2'>Date: </h6><p>{new Date(vendor.date).toLocaleDateString(undefined, options)}</p>
                             <p className='lead'> {vendor.details}</p>
                             <div className='m-2'>
@@ -91,6 +92,7 @@ const BookingsMade = () => {
                     :<div className='card text-center row' style={{width:"20rem"}}>
                     <div >
                     <h6 className='mb-2'>customer: </h6><p> {vendor.customer.email}</p>
+                    <h6 className='mb-2'>Address: </h6><p> {vendor.customer.address}</p>
                     <h6 className='mb-2'>Date: </h6><p>{new Date(vendor.date).toLocaleDateString(undefined, options)}</p>                            <p className='lead'> {vendor.details}</p>
                             <div className='m-2'>
                         <>
