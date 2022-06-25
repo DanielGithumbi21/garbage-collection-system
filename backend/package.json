@@ -12,7 +12,7 @@
     "cors": "^2.8.5",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
-    "express": "~4.16.1",
+    "express": "~4.17.1",
     "mongoose": "^6.0.11",
     "mongoose-currency": "^0.2.0",
     "morgan": "~1.9.1"
